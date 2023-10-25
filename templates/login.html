@@ -3,29 +3,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin</title>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-
-    <script>
-        function validateForm() {
-        var user = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-    
-        if (user === "" || password === "") {
-            alert("Por favor complete todos los campos");
-            return false;
-        } else if (user === "1" && password === "1") {
-            window.location.href = "index.html";
-           alert("Bienvenido");                
-        } else {
-            alert("Usuario o contraseña incorrectos");
-            return false;
-        }
-    }
-    </script>
     <form  method="POST" action=""onsubmit="return validateForm()">
         <input name="_token" type="hidden" value="8uJSPlji54PIfoCbx1xhwKd7YpIynNXesPTw9Gc0">
         <div class="svgContainer">
@@ -62,7 +44,21 @@
             e.preventDefault(); // Evitar que el formulario se envíe normalmente
             window.location.href = '/Portal.html'; // Redirigir a la página "Portal"
         });
-
+        function validateForm() {
+        var user = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+    
+        if (user === "" || password === "") {
+            alert("Por favor complete todos los campos");
+            return false;
+        } else if (user === "1" && password === "1") {
+            window.location.href = "index.html";
+           alert("Bienvenido");                
+        } else {
+            alert("Usuario o contraseña incorrectos");
+            return false;
+        }
+    }
         
     </script>
 </body>
