@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <title>SISTEMA DE SEGURIDAD</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+  <img id="apostar" src="../img/apostar1.jpg" style="width: 100%;">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+          <img alt="Brand" src="/img/apostar.jpg" style="width: 40px; height: 40px;">
+        </a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="../index.html">menú</a></li>
+          <li><a href="../login.html">Salir</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+  <center style="width: 100%;">
+    <div class="" >
+      <div class="page-title">
+        <div class="title_left">
+          <h3>Usuarios</h3>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h3>Crear usuario <br><h6>Plantilla de creación de usuarios</h6></h3>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+              <br />
+              <form method="POST" action="#" accept-charset="UTF-8" autocomplete="off"
+                class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data"><input
+                  name="_token" type="hidden" value="KGI0GLUMO4MdqGw7E2BIuAJsPg4jfiApYSYD6p16">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="Cédula *: " class="control-label col-md-3 col-sm-3 col-xs-12"
+                      for="identificacion">C&eacute;dula *: </label>
+                      <!--<button><a href="../Camera/Camera/templates/camera.html">Capturar Datos</a></button>-->
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="identificacion" class="form-control col-md-7 col-xs-12" placeholder="Cédula"
+                        name="identificacion" type="text">
+                      <span class="input-group-btn">
+                      </span>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Nombres *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="nombres">Nombres *:
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Nombres" disabled
+                        name="nombres" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Apellidos *: " class="control-label col-md-3 col-sm-3 col-xs-12"
+                      for="apellidos">Apellidos *: </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Apellidos" disabled
+                        name="apellidos" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Celular *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="celular">Celular *:
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="celular" class="form-control col-md-7 col-xs-12" placeholder="Celular" disabled
+                        name="celular" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Empresa *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="empresa">Empresa *:
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <input id="empresa" class="form-control col-md-7 col-xs-12" placeholder="Empresa" disabled
+                        name="empresa" type="text">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Area de visita *: " class="control-label col-md-3 col-sm-12 col-xs-12"
+                      for="role_id">Area De Visita *: </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <select id="dependencia_id" class="form-control col-md-7 col-xs-12 btn btn-default" disabled
+                        name="dependencia_id">
+                        <option selected="selected" value="">Seleccione una opción</option>
+                        <option value="1">ARCHIVO</option>
+                        <option value="2">CORDINACION DE MERCADEO</option>
+                        <option value="3">DIRECCION DE GESTION Y RIESGOS</option>
+                        <option value="4">COOPERATIVA</option>
+                        <option value="5">COORDINACION DE RECURSOS HUMANOS</option>
+                        <option value="6">DIRECCION COMERCIAL </option>
+                        <option value="7">DIRECCION ADMINISTRATIVA</option>
+                        <option value="8">DIRECCION DE COMUNICACIONES</option>
+                        <option value="9">DIRECCION DE TICS</option>
+                        <option value="10">DIRECCION FINANCIERA</option>
+                        <option value="11">GERENCIA GENERAL</option>
+                        <option value="12">PROCESAMIENTOS DE DATOS</option>
+                        <option value="13">DIRECCION DE PRODUCTOS Y SERVICIOS</option>
+                        <option value="14">DIRECCION DE RECAUDO</option>
+                        <option value="15">TESORERIA</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado
+                      *: </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <select id="empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default" disabled
+                        name="empleado_id">
+                        <option selected="selected" value="">Seleccione una opción</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="Ingresar equipo *: " class="control-label col-md-3 col-sm-12 col-xs-12"
+                      for="role_id">Ingresar Equipo *: </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                      <button type="button" class="btn btn-primary" id="equipo" data-toggle="modal"
+                        data-target="#myModal" disabled="true">Ingresar</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-6" id="my_camera" style="width:320px; height:240px;"></div>
+                    <input id="imagen" type="hidden" name="imagen" value="" />
+                    <input id="oldimagen" type="hidden" name="oldimagen" value="" />
+                    <div class="col-md-5 col-md-offset-1" id="my_result">
+                      <img id="imagenvisitante" src="" />
+                    </div>
+                  </div>
+                  <br>
+                  <div class="row">
+                  </div>
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Equipo</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label for="tipo de equipo *: " class="control-label col-md-4 col-sm-12 col-xs-12"
+                            for="equipo">Tipo De Equipo *: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select id="articulo_id" class="form-control col-md-7 col-xs-12 btn btn-default"
+                              name="articulo_id">
+                              <option selected="selected" value="">Seleccione una opción</option>
+                              <option value="1">Portatil</option>
+                              <option value="2">Tablet</option>
+                              <option value="3">Disco duro</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="marca *: " class="control-label col-md-4 col-sm-3 col-xs-12" for="marca">Marca *:
+                          </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="marca" class="form-control col-md-7 col-xs-12" placeholder="marca" name="marca"
+                              type="text">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label for="Serial *: " class="control-label col-md-4 col-sm-3 col-xs-12" for="serial">Serial
+                            *: </label>
+                          <div class="col-md-6 col-sm-6 col-xs-12">
+                            <input id="serial" class="form-control col-md-7 col-xs-12" placeholder="Serial"
+                              name="serial" type="text">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <input id="crear" class="btn btn-primary" disabled type="submit" value="Crear">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6" style="float: right; margin-right: 10px; margin-top: 20px;">
+        <video id="camera-feed" autoplay style="position: relative; top:-450px; width: 70%;" ></video>
+        <button id="capture-button" style="position: relative; top:-400px;">Capturar Imagen</button>
+        <canvas id="captured-image" style="display: none; width: 20%;"></canvas>
+    
+        <script src="https://cdn.jsdelivr.net/npm/pytesseract@0.4.8"></script>
+    
+        <script>
+            // Obtener acceso a la cámara
+            navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function (stream) {
+                    // Mostrar el flujo de la cámara en el elemento de video
+                    var cameraFeed = document.getElementById('camera-feed');
+                    cameraFeed.srcObject = stream;
+                })
+                .catch(function (error) {
+                    console.error('Error al acceder a la cámara:', error);
+                });
+    
+            // Capturar una imagen al hacer clic en el botón
+            var captureButton = document.getElementById('capture-button');
+            captureButton.addEventListener('click', function () {
+                var cameraFeed = document.getElementById('camera-feed');
+                var capturedImage = document.getElementById('captured-image');
+                var context = capturedImage.getContext('2d');
+    
+                // Configurar el tamaño del lienzo para que coincida con el tamaño de la imagen de la cámara
+                capturedImage.width = cameraFeed.videoWidth;
+                capturedImage.height = cameraFeed.videoHeight;
+    
+                // Dibujar la imagen de la cámara en el lienzo
+                context.drawImage(cameraFeed, 0, 0, capturedImage.width, capturedImage.height);
+    
+                // Convertir la imagen capturada en una URL de datos
+                var imageDataURL = capturedImage.toDataURL('image/png');
+    
+                // Crear un objeto FormData para enviar la imagen al servidor
+                var formData = new FormData();
+                formData.append('captured_image', imageDataURL);
+    
+                // Enviar la imagen al servidor (puedes usar una solicitud AJAX aquí)
+                fetch('/process_image', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // El resultado del OCR se encuentra en 'data.text'
+                    alert('Texto extraído: ' + data.text);
+                })
+                .catch(error => {
+                    console.error('Error al enviar la imagen al servidor:', error);
+                });
+            });
+        </script>
+      </div>
+  </center>
+  
+</body>
+</html>
