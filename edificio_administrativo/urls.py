@@ -16,10 +16,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from edificio_app.views import loginView , indexView
+from django.views.generic.base import RedirectView
+from edificio_app.views import loginView,indexView, createView, empleadosView, reportesView, usersView, visitantesView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', RedirectView.as_view(url='/login/', permanent=False), name='login'),
     path('login/',loginView, name= 'login'),
-    path('index/',indexView, name='index'),
+    path('index/',indexView, name= 'index'),
+    path('create/',createView, name='create'),
+    path('empleados/',empleadosView, name='empleados'),
+    path('reportes/',reportesView, name='reportes'),
+    path('users/',usersView, name='users'),
+    path('visitantes/',visitantesView, name='visitantes'),
 ]

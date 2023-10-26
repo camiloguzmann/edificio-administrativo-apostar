@@ -1,6 +1,6 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<meta charset="UTF-8">
 	<title>APOSTAR</title>
@@ -12,21 +12,21 @@
 </head>
 
 <body>
-	<img id="apostar" src="./img/apostar1.jpg" style="width: 100%;">
+	<img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#">
-					<img alt="Brand" src="/img/apostar.jpg" style="width: 40px; height: 40px;">
+					<img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
 				</a>
 			</div>
 
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="index.html">menú</a></li>
-					<li><a href="login.html">Salir</a></li>
+					<li><a href="{% url 'index' %}">menú</a></li>
+					<li><a href="{% url 'login' %}">Salir</a></li>
 				</ul>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- /.container-fluid -->

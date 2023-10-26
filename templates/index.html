@@ -16,7 +16,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="#" style="padding: 4px;">
                     <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
                 </a>
             </div>
@@ -34,7 +34,7 @@
             <center id="menu">
                 <tr>
                     <td>
-                        <a href="/visitantes/create.html"><img id="img" src="{% static 'img/persona.jpg' %}"
+                        <a href="{% url 'create' %}"><img id="img" src="{% static 'img/persona.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
@@ -44,7 +44,7 @@
                     </td>
                     <td>
                         <br>
-                        <a href="visitantes.html"><img id="img" src="{% static 'img/relog.jpg' %}"
+                        <a href="{% url 'visitantes' %}"><img id="img" src="{% static 'img/relog.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
@@ -53,7 +53,7 @@
                         </center>
                     </td>
                     <td>
-                        <a href="empleados.html"><img id="img" src="{% static 'img/reporte.jpg' %}"
+                        <a href="{% url 'empleados' %}"><img id="img" src="{% static 'img/reporte.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
@@ -62,7 +62,7 @@
                         </center>
                     </td>
                     <td>
-                        <a href="reportes.html"><img id="img" src="{% static 'img/reporte.jpg' %}"
+                        <a href="{% url 'reportes' %}"><img id="img" src="{% static 'img/reporte.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
@@ -72,7 +72,7 @@
                     </td>
                     <td>
                         <br>
-                        <a href="users.html"><img id="img" src="{% static 'img/huella.jpg' %}"
+                        <a href="{% url 'users' %}"><img id="img" src="{% static 'img/huella.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
