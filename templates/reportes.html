@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>APOSTAR</title>
+	<title>SISTEMA DE SEGURIDAD</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+	<img id="apostar" src="./img/apostar1.jpg" style="width: 100%;">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">
+					<img alt="Brand" src="/img/apostar.jpg" style="width: 40px; height: 40px;">
+				</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li><a href="index.html">menú</a></li>
+					<li><a href="login.html">Salir</a></li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h3>Reportes </h3>
+					<ul class="nav navbar-right panel_toolbox">
+						</li>
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="datatable" class="table table-hover">
+						<thead>
+							<th>Reporte</th>
+							<th>Tipo</th>
+							<th>Desde</th>
+							<th>hasta</th>
+							<th>generar</th>
+						</thead>
+						<tbody>
+							<form method="POST" action="#" accept-charset="UTF-8"
+								autocomplete="off" class="form-horizontal form-label-left" id="visitante"><input
+									name="_token" type="hidden" value="nX9Io1TGKtzDHkzJYV7mnINAgT4ARFOoKBamTvyg">
+								<tr>
+									<td>Ingresos</td>
+									<td><select id="tipo" class="form-control col-md-7 col-xs-12 btn btn-default"
+											required="true" name="tipo">
+											<option selected="selected" value="">Seleccione una opción</option>
+											<option value="1">con equipo</option>
+											<option value="2">sin equipo</option>
+											<option value="3">todos</option>
+										</select> </td>
+									<td>
+										<div class='input-group date' id='equipoFI'>
+											<input id="EFI" class="form-control" placeholder="YYYY-MM-DD"
+												required="true" name="EFI" type="text">
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</td>
+									<td>
+										<div class='input-group date' id='equipoFF'>
+											<input id="EFF" class="form-control" placeholder="YYYY-MM-DD"
+												required="true" name="EFF" type="text">
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-calendar"></span>
+											</span>
+										</div>
+									</td>
+									<td>
+										<input id="crear" class="btn btn-primary" type="submit" value="Generar">
+									</td>
+								</tr>
+							</form>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
