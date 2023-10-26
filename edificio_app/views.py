@@ -6,3 +6,6 @@ from django.http import HttpResponse , JsonResponse
 
 def loginView(request):
     return render (request, 'login.html')
+
+def loginView(request):
+    return render (request, 'index.html')

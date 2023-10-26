@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>APOSTAR</title>
+    <title>SISTEMA DE SEGURIDAD</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.html">menú</a></li>
+                    <li><a href="login.html">Salir</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div>
+        <TABLE BORDER="0" CELLSPACING="100" CELLPADDING="0">
+            <div id="menu">
+                <tr>
+                    <td>
+                        <a href="/visitantes/create.html"><img id="img" src="{% static 'img/persona.jpg' %}"
+                                style="width: 200px; height: 200px; margin-right: 10px;"></a>
+                        </br>
+                        <div>
+                            <p></p>
+                            <p>Ingresar Visitante</p>
+                        </div>
+                    </td>
+                    <td>
+                        <br>
+                        <a href="visitantes.html"><img id="img" src="{% static 'img/relog.jpg' %}"
+                                style="width: 200px; height: 200px; margin-right: 10px;"></a>
+                        </br>
+                        <div>
+                            <p>Registrar</p>
+                            <p>Salida Visitante</p>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="empleados.html"><img id="img" src="{% static 'img/reporte.jpg' %}"
+                                style="width: 200px; height: 200px; margin-right: 10px;"></a>
+                        </br>
+                        <div>
+                            <p></p>
+                            <p>Empleados</p>
+                        </div>
+                    </td>
+                    <td>
+                        <a href="reportes.html"><img id="img" src="{% static 'img/reporte.jpg' %}"
+                                style="width: 200px; height: 200px; margin-right: 10px;"></a>
+                        </br>
+                        <div>
+                            <p></p>
+                            <p>Reportes</p>
+                        </div>
+                    </td>
+                    <td>
+                        <br>
+                        <a href="users.html"><img id="img" src="{% static 'img/huella.jpg' %}"
+                                style="width: 200px; height: 200px; margin-right: 10px;"></a>
+                        </br>
+                        <div>
+                            <p>Ingreso</p>
+                            <p>Personal Admin</p>
+                        </div>
+                    </td>
+                </tr>
+            </div>
+        </table>
+    </div>
+</body>
+</html>

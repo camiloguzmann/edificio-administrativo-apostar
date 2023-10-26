@@ -20,5 +20,6 @@ from edificio_app.views import loginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/',loginView),
+    path('login/',loginView, name='login'),
+    path('index/',loginView, name='index'),
 ]
