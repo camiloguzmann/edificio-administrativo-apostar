@@ -14,18 +14,3 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault(); // Evitar que el formulario se envíe normalmente
     window.location.href = '/Portal.html'; // Redirigir a la página "Portal"
 });
-// function validateForm() {
-// var user = document.getElementById("email").value;
-// var password = document.getElementById("password").value;
-
-// if (user === "" || password === "") {
-//     alert("Por favor complete todos los campos");
-//     return false;
-// } else if (user === "1" && password === "1") {
-//     window.location.href = "index.html";
-//    alert("Bienvenido");                
-// } else {
-//     alert("Usuario o contraseña incorrectos");
-//     return false;
-// }
-// }

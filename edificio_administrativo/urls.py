@@ -15,18 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.views.generic.base import RedirectView
-from edificio_app.views import loginView,indexView, createView, empleadosView, reportesView, usersView, visitantesView
+from edificio_app import views
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
+    # path('', RedirectView.as_view(url='login/', permanent=False), name='login'),
     path('admin/', admin.site.urls),
-    path('', RedirectView.as_view(url='/login/', permanent=False), name='login'),
-    path('login/',loginView, name= 'login'),
-    path('index/',indexView, name= 'index'),
-    path('create/',createView, name='create'),
-    path('empleados/',empleadosView, name='empleados'),
-    path('reportes/',reportesView, name='reportes'),
-    path('users/',usersView, name='users'),
-    path('visitantes/',visitantesView, name='visitantes'),
+    # path('login/', LoginView.as_view(template_name='login.html'), name='login'),
+    path('', login_required(views.indexView), name='index'),
+    path('visitantes/create/', login_required(views.createView), name='create'),
+    path('visitantes/salida/', login_required(views.visitantesView), name='visitantes'),
+    path('visitantes/empleados/', login_required(views.empleadosView), name='empleados'),
+    path('visitantes/reportes/', login_required(views.reportesView), name='reportes'),
+    path('visitantes/users/', login_required(views.usersView), name='users'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
