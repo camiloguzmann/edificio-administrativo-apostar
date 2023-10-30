@@ -1,0 +1,18 @@
+.col-md-12.col-sm-12.col-xs-12 {
+    margin-top: -21px;
+}
+h3 {
+    margin-top: 3px;
+}
+body {
+    overflow: hidden;
+}
+
+#capture-button {
+    position: relative;
+    top: -414px;
+    right: 371px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+}
