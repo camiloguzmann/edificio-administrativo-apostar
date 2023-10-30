@@ -2,7 +2,7 @@
     margin-top: -21px;
 }
 h3 {
-    margin-top: 3px;
+    margin-top: 34px;
 }
 body {
     overflow: hidden;
@@ -10,9 +10,30 @@ body {
 
 #capture-button {
     position: relative;
-    top: -414px;
+    top: -450px;
     right: 371px;
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 6px 12px;
+    transition: border-color 0.3s;
+    
+}
+#crear {
+    margin-left: -6%;
+    margin-top: -89px;
+}
+
+#camera-feed {
+    position: relative;
+    top: -484px;
+    width: 75%;
+    left: 121px;
+    border-radius: 4px;
+}
+
+#capture-button:hover {
+    background-color: #2e6da4;
 }
