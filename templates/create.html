@@ -8,15 +8,16 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/create.css' %}">
 
 </head>
 <body>
-  <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
+  <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;height: 106px;">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="#" style="padding: 4px;">
           <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
         </a>
       </div>
@@ -32,20 +33,16 @@
   <center style="width: 100%;">
     <div class="" >
       <div class="page-title">
-        <div class="title_left">
-          <h3>Usuarios</h3>
-        </div>
       </div>
       <div class="clearfix"></div>
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="x_panel">
             <div class="x_title">
-              <h3>Crear usuario <br><h6>Plantilla de creación de usuarios</h6></h3>
+              <h3>Crear usuario <h6></h6></h3>
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <br />
               <form method="POST" action="#" accept-charset="UTF-8" autocomplete="off"
                 class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data"><input
                   name="_token" type="hidden" value="KGI0GLUMO4MdqGw7E2BIuAJsPg4jfiApYSYD6p16">
@@ -146,7 +143,7 @@
                       <img id="imagenvisitante" src="" />
                     </div>
                   </div>
-                  <br>
+                  
                   <div class="row">
                   </div>
                 </div>
@@ -208,8 +205,8 @@
       </div>
     </div>
     <div class="col-md-6" style="float: right; margin-right: 10px; margin-top: 20px;">
-        <video id="camera-feed" autoplay style="position: relative; top:-450px; width: 70%;" ></video>
-        <button id="capture-button" style="position: relative; top:-400px;">Capturar Imagen</button>
+        <video id="camera-feed" autoplay style="position: relative; top:-459px; width: 75%; left: 121px;" ></video>
+        <button id="capture-button">Capturar Imagen</button>
         <canvas id="captured-image" style="display: none; width: 20%;"></canvas>
     
         <script src="https://cdn.jsdelivr.net/npm/pytesseract@0.4.8"></script>

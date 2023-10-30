@@ -31,5 +31,3 @@ def usersView(request):
 @login_required
 def visitantesView(request):
     return render (request, 'visitantes.html')
-
-

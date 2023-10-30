@@ -14,12 +14,13 @@ body {
 
 form {
   position: absolute;
-  top: 50%;
+  top: 47%;
   left: 50%;
   transform: translate(-50%, -50%);
   display: block;
   width: 100%;
   max-width: 400px;
+  max-height: 632px;
   background-color: #d32130;
   margin: 0;
   padding: 2.25em;

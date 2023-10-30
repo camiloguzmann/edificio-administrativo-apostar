@@ -10,7 +10,7 @@
 </head>
 <body>
     {% if form.errors %}
-        <p>Su nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
+    <p style="font-size: 1rem; font-weight: bold;">Su nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
     {% endif %}
 
     {% if next %}
@@ -18,7 +18,7 @@
       <p>Su cuenta no tiene acceso a esta página. Para continuar,
       inicie sesión con una cuenta que tenga acceso.</p>
     {% else %}
-      <p>Por favor inicie sesión.</p>
+      <p style="font-size: 1rem; font-weight: bold;">Por favor inicie sesión.</p>
     {% endif %}
   {% endif %}
 
