@@ -46,6 +46,7 @@
               <form method="POST" action="#" accept-charset="UTF-8" autocomplete="off"
                 class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data"><input
                   name="_token" type="hidden" value="KGI0GLUMO4MdqGw7E2BIuAJsPg4jfiApYSYD6p16">
+                  {% csrf_token %}
                 <div class="col-md-6">
                   <div class="form-group">
                     <label for="Cédula *: " class="control-label col-md-3 col-sm-3 col-xs-12"
@@ -62,7 +63,7 @@
                     <label for="Nombres *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="nombres">Nombres *:
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Nombres" disabled
+                      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Nombres"
                         name="nombres" type="text">
                     </div>
                   </div>
@@ -70,7 +71,7 @@
                     <label for="Apellidos *: " class="control-label col-md-3 col-sm-3 col-xs-12"
                       for="apellidos">Apellidos *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Apellidos" disabled
+                      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Apellidos"
                         name="apellidos" type="text">
                     </div>
                   </div>
@@ -78,7 +79,7 @@
                     <label for="Celular *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="celular">Celular *:
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="celular" class="form-control col-md-7 col-xs-12" placeholder="Celular" disabled
+                      <input id="celular" class="form-control col-md-7 col-xs-12" placeholder="Celular"
                         name="celular" type="text">
                     </div>
                   </div>
@@ -86,7 +87,7 @@
                     <label for="Empresa *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="empresa">Empresa *:
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="empresa" class="form-control col-md-7 col-xs-12" placeholder="Empresa" disabled
+                      <input id="empresa" class="form-control col-md-7 col-xs-12" placeholder="Empresa"
                         name="empresa" type="text">
                     </div>
                   </div>
@@ -94,7 +95,7 @@
                     <label for="Area de visita *: " class="control-label col-md-3 col-sm-12 col-xs-12"
                       for="role_id">Area De Visita *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select id="dependencia_id" class="form-control col-md-7 col-xs-12 btn btn-default" disabled
+                      <select id="dependencia_id" class="form-control col-md-7 col-xs-12 btn btn-default"
                         name="dependencia_id">
                         <option selected="selected" value="">Seleccione una opción</option>
                         <option value="1">ARCHIVO</option>
@@ -119,7 +120,7 @@
                     <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado
                       *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select id="empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default" disabled
+                      <select id="empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default"
                         name="empleado_id">
                         <option selected="selected" value="">Seleccione una opción</option>
                       </select>
@@ -130,7 +131,7 @@
                       for="role_id">Ingresar Equipo *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                       <button type="button" class="btn btn-primary" id="equipo" data-toggle="modal"
-                        data-target="#myModal" disabled="true">Ingresar</button>
+                        data-target="#myModal"="true">Ingresar</button>
                     </div>
                   </div>
                 </div>
@@ -195,7 +196,7 @@
                 </div>
                 <div class="form-group">
                   <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <input id="crear" class="btn btn-primary" disabled type="submit" value="Crear">
+                    <input id="crear" class="btn btn-primary" type="submit" value="Crear">
                   </div>
                 </div>
               </form>
@@ -258,7 +259,7 @@
                     console.error('Error al enviar la imagen al servidor:', error);
                 });
             });
-        </script>
+        </script>  
       </div>
   </center>
   
