@@ -1,7 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -11,9 +10,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="{% static 'css/create.css' %}">
-
 </head>
-
 <body>
   <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;height: 106px;">
   <nav class="navbar navbar-default">
@@ -48,7 +45,7 @@
             <div class="x_content">
               <form method="POST" action="#" accept-charset="UTF-8" autocomplete="off"
                 class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data"><input
-                  name="_token" type="hidden" value="KGI0GLUMO4MdqGw7E2BIuAJsPg4jfiApYSYD6p16">
+            
                   {% csrf_token %}
                 <div class="col-md-6">
                   <div class="form-group">
@@ -101,21 +98,6 @@
                       <select id="dependencia_id" class="form-control col-md-7 col-xs-12 btn btn-default"
                         name="dependencia_id">
                         <option selected="selected" value="">Seleccione una opción</option>
-                        <option value="1">ARCHIVO</option>
-                        <option value="2">CORDINACION DE MERCADEO</option>
-                        <option value="3">DIRECCION DE GESTION Y RIESGOS</option>
-                        <option value="4">COOPERATIVA</option>
-                        <option value="5">COORDINACION DE RECURSOS HUMANOS</option>
-                        <option value="6">DIRECCION COMERCIAL </option>
-                        <option value="7">DIRECCION ADMINISTRATIVA</option>
-                        <option value="8">DIRECCION DE COMUNICACIONES</option>
-                        <option value="9">DIRECCION DE TICS</option>
-                        <option value="10">DIRECCION FINANCIERA</option>
-                        <option value="11">GERENCIA GENERAL</option>
-                        <option value="12">PROCESAMIENTOS DE DATOS</option>
-                        <option value="13">DIRECCION DE PRODUCTOS Y SERVICIOS</option>
-                        <option value="14">DIRECCION DE RECAUDO</option>
-                        <option value="15">TESORERIA</option>
                       </select>
                     </div>
                   </div>
@@ -123,6 +105,7 @@
                     <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado
                       *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
+                      <!-- {{ form.empleado }} -->
                       <select id="empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default"
                         name="empleado_id">
                         <option selected="selected" value="">Seleccione una opción</option>
@@ -134,6 +117,7 @@
                       for="role_id">Ingresar Equipo *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <button type="button" class="btn btn-primary" id="equipo" data-toggle="modal" data-target="#myModal">Ingresar</button>
+                        <button type="reset" class="btn btn-primary" id="btnBorrar">Borrar</button>
                     </div>
                     
                   </div>
@@ -212,59 +196,9 @@
         <video id="camera-feed" autoplay></video>
         <button id="capture-button">Capturar Imagen</button>
         <canvas id="captured-image" style="display: none; width: 20%;"></canvas>
-    
-        <script src="https://cdn.jsdelivr.net/npm/pytesseract@0.4.8"></script>
-    
-        <script>
-            // Obtener acceso a la cámara
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(function (stream) {
-                    // Mostrar el flujo de la cámara en el elemento de video
-                    var cameraFeed = document.getElementById('camera-feed');
-                    cameraFeed.srcObject = stream;
-                })
-                .catch(function (error) {
-                    console.error('Error al acceder a la cámara:', error);
-                });
-    
-            // Capturar una imagen al hacer clic en el botón
-            var captureButton = document.getElementById('capture-button');
-            captureButton.addEventListener('click', function () {
-                var cameraFeed = document.getElementById('camera-feed');
-                var capturedImage = document.getElementById('captured-image');
-                var context = capturedImage.getContext('2d');
-    
-                // Configurar el tamaño del lienzo para que coincida con el tamaño de la imagen de la cámara
-                capturedImage.width = cameraFeed.videoWidth;
-                capturedImage.height = cameraFeed.videoHeight;
-    
-                // Dibujar la imagen de la cámara en el lienzo
-                context.drawImage(cameraFeed, 0, 0, capturedImage.width, capturedImage.height);
-    
-                // Convertir la imagen capturada en una URL de datos
-                var imageDataURL = capturedImage.toDataURL('image/png');
-    
-                // Crear un objeto FormData para enviar la imagen al servidor
-                var formData = new FormData();
-                formData.append('captured_image', imageDataURL);
-    
-                // Enviar la imagen al servidor (puedes usar una solicitud AJAX aquí)
-                fetch('/process_image', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // El resultado del OCR se encuentra en 'data.text'
-                    alert('Texto extraído: ' + data.text);
-                })
-                .catch(error => {
-                    console.error('Error al enviar la imagen al servidor:', error);
-                });
-            });
-        </script>  
-      </div>
+    </div>     
+  <script src="{% static 'js/login.js' %}"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   </center>
-  
 </body>
 </html>

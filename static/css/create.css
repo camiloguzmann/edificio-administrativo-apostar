@@ -13,8 +13,8 @@ body {
     top: -450px;
     right: 371px;
     color: #fff;
-    background-color: #337ab7;
-    border-color: #2e6da4;
+    background-color:  #df1515;
+    border-color: #a94442;
     border: 1px solid transparent;
     border-radius: 4px;
     padding: 6px 12px;
@@ -35,5 +35,35 @@ body {
 }
 
 #capture-button:hover {
-    background-color: #2e6da4;
+    background-color: #d73232;
+
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #df1515;;
+    border-color: #a94442;
+}
+
+.btn-primary:hover {
+    background-color: #d73232;
+    border-color: #a94442;
+
+}
+#btnBorrar {
+    background-color:  #df1515;
+    border-color: #a94442;
+}
+#equipo {
+    background-color:  #df1515;
+    border-color: #a94442;
+}
+
+#btnBorrar:hover {
+    background-color: #d73232;
+    border-color: #a94442;
+}
+#equipo:hover {
+    background-color: #d73232;
+    border-color: #a94442;
 }
