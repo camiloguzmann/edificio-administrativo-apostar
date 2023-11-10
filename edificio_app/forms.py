@@ -12,20 +12,15 @@ class RegistroVisitante(forms.Form):
     empresa = forms.CharField(label='Empresa', max_length=100, required=True)
     articulo_id = forms.ChoiceField(label='Tipo de Equipo *', choices=[], required=False)
     marca = forms.CharField(label='Marca *', max_length=100)
-    area = forms.ModelChoiceField(queryset=Area.objects.all(), label='Área de Visita')
-    empleado = forms.ModelChoiceField(queryset=Empleado.objects.all(), label='Empleado')
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        
-        # Puedes personalizar las opciones para tus campos de ChoiceField aquí
-        self.fields['articulo_id'].choices = [
-            (1, 'Portatil'), 
-            (2, 'Tablet'), 
-            (3, 'Disco duro')
-        ]
+    area_id = forms.ModelChoiceField(
+            queryset=Area.objects.all(),
+            label='Área de Visita',
+            required=True
+        )
 
-        # Dependiendo de tus modelos y relaciones, puedes ajustar este código
-        self.fields['empleado'].queryset = Empleado.objects.all()  # Todas los empleados disponibles inicialmente
-
-    # Puedes agregar funciones adicionales aquí para manejar la lógica de dependencias y empleados
+    empleado_id = forms.ModelChoiceField(
+        queryset=Empleado.objects.all(), 
+        label='Empleado',
+        required=True
+    )

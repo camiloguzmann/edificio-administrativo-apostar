@@ -92,26 +92,29 @@
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Area de visita *: " class="control-label col-md-3 col-sm-12 col-xs-12"
-                      for="role_id">Area De Visita *: </label>
+                    <label for="Area de visita *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Area De Visita *: </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select id="dependencia_id" class="form-control col-md-7 col-xs-12 btn btn-default"
-                        name="dependencia_id">
-                        <option selected="selected" value="">Seleccione una opción</option>
-                      </select>
+                        <select id="area_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="area_id">
+                            <option selected="selected" value="">Seleccione una opción</option>
+                            {% for area in form.area_id.field.queryset %}
+                                <option value="{{ area.id }}" data-area-id="{{ area.id }}">{{ area.nombre }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
-                  </div>
-                  <div class="form-group">
-                    <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado
-                      *: </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                      <!-- {{ form.empleado }} -->
-                      <select id="empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default"
-                        name="empleado_id">
-                        <option selected="selected" value="">Seleccione una opción</option>
+                </div>
+                                
+                <div class="form-group">
+                  <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado *: </label>
+                  <div class="col-md-6 col-sm-6 col-xs-12">
+                      <select id="id_empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="empleado_id">
+                          <option selected="selected" value="">Seleccione una opción</option>
+                          {% for empleado in form.empleado_id.field.queryset %}
+                              <option value="{{ empleado.id }}" data-area-id="{{ empleado.area_id }}">{{ empleado.nombre }}</option>
+                          {% endfor %}
                       </select>
-                    </div>
                   </div>
+              </div>
+                                
                   <div class="form-group">
                     <label for="Ingresar equipo *: " class="control-label col-md-3 col-sm-12 col-xs-12"
                       for="role_id">Ingresar Equipo *: </label>
@@ -119,7 +122,6 @@
                         <button type="button" class="btn btn-primary" id="equipo" data-toggle="modal" data-target="#myModal">Ingresar</button>
                         <button type="reset" class="btn btn-primary" id="btnBorrar">Borrar</button>
                     </div>
-                    
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -199,6 +201,7 @@
     </div>     
   <script src="{% static 'js/login.js' %}"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
   </center>
 </body>
 </html>

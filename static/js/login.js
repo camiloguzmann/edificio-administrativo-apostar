@@ -95,14 +95,34 @@ document.getElementById('capture-button').addEventListener('click', function () 
     }, 'image/jpeg', 0.9);
 });
 
-$(document).ready(function () {
-    $('#id_dependencia_id').change(function () {
-        var dependenciaId = $(this).val();
-        $.ajax({
-            url: '/visitantes/create/' + dependenciaId + '/',
-            success: function (data) {
-                $('#id_empleado_id').html(data);
-            }
-        });
-    });
+
+document.getElementById('area_id').addEventListener('change', function () {
+    var selectedAreaId = this.value;
+    var empleadoDropdown = document.getElementById('id_empleado_id');
+
+    // Si no se selecciona un área, oculta todas las opciones del segundo desplegable y sale del evento
+    if (!selectedAreaId) {
+        for (var i = 0; i < empleadoDropdown.options.length; i++) {
+            empleadoDropdown.options[i].style.display = 'none';
+        }
+        return;
+    }
+
+    // Si se selecciona un área, muestra solo las opciones correspondientes al área seleccionada
+    for (var i = 0; i < empleadoDropdown.options.length; i++) {
+        var empleadoAreaId = empleadoDropdown.options[i].getAttribute('data-area-id');
+        if (empleadoAreaId === selectedAreaId) {
+            empleadoDropdown.options[i].style.display = 'block';
+        } else {
+            empleadoDropdown.options[i].style.display = 'none';
+        }
+    }
+});
+
+// Oculta todas las opciones del segundo desplegable al cargar la página
+document.addEventListener('DOMContentLoaded', function () {
+    var empleadoDropdown = document.getElementById('id_empleado_id');
+    for (var i = 0; i < empleadoDropdown.options.length; i++) {
+        empleadoDropdown.options[i].style.display = 'none';
+    }
 });
