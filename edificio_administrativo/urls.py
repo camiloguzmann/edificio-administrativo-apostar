@@ -31,6 +31,7 @@ urlpatterns = [
     path('visitantes/empleados/', login_required(views.empleadosView), name='empleados'),
     path('visitantes/reportes/', login_required(views.reportesView), name='reportes'),
     path('visitantes/users/', login_required(views.usersView), name='users'),
+    path('empleados/create/', login_required(views.empleadosCreateView), name='crearEmpleados'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('cedula/',views.completarCedula)
 

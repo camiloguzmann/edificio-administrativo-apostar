@@ -15,20 +15,18 @@
   <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;height: 106px;">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <a class="navbar-brand" href="#" style="padding: 4px;">
           <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
         </a>
       </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="{% url 'index' %}">menú</a></li>
           <li><a href="{% url 'login' %}">Salir</a></li>
         </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+      </div>
+    </div>
   </nav>
   <center style="width: 100%;">
     <div class="" >
@@ -43,59 +41,66 @@
               <div class="clearfix"></div>
             </div>
             <div class="x_content">
-              <form method="POST" action="#" accept-charset="UTF-8" autocomplete="off"
-                class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data"><input
-            
+
+              {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <form method="POST" action="" accept-charset="UTF-8" autocomplete="off"
+                class="form-horizontal form-label-left" id="visitante" enctype="multipart/form-data">
                   {% csrf_token %}
+                  
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label for="Cédula *: " class="control-label col-md-3 col-sm-3 col-xs-12"
-                      for="identificacion">C&eacute;dula *: </label>
-                      <!--<button><a href="../Camera/Camera/templates/camera">Capturar Datos</a></button>-->
+                    <label for="Cédula : " class="control-label col-md-3 col-sm-3 col-xs-12"
+                      for="identificacion">C&eacute;dula : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="identificacion" class="form-control col-md-7 col-xs-12" placeholder="Cédula"
-                        name="identificacion" type="text">
+                      <input id="identificacion" class="form-control col-md-7 col-xs-12" placeholder="Ingrese la cedula"
+                        name="identificacion" type="number" required>
                       <span class="input-group-btn">
                       </span>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Nombres *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="nombres">Nombres *:
+                    <label for="Nombres : " class="control-label col-md-3 col-sm-3 col-xs-12" for="nombres">Nombres :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Nombres"
-                        name="nombres" type="text">
+                      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Ingrese el nombre"
+                        name="nombres" type="text" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Apellidos *: " class="control-label col-md-3 col-sm-3 col-xs-12"
-                      for="apellidos">Apellidos *: </label>
+                    <label for="Apellidos : " class="control-label col-md-3 col-sm-3 col-xs-12"
+                      for="apellidos">Apellidos : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Apellidos"
-                        name="apellidos" type="text">
+                      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Ingrese el apellido"
+                        name="apellidos" type="text" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Celular *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="celular">Celular *:
+                    <label for="Celular : " class="control-label col-md-3 col-sm-3 col-xs-12" for="celular">Celular :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="celular" class="form-control col-md-7 col-xs-12" placeholder="Celular"
-                        name="celular" type="text">
+                      <input id="celular" class="form-control col-md-7 col-xs-12" placeholder="Ingrese el celular"
+                        name="celular" type="number" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Empresa *: " class="control-label col-md-3 col-sm-3 col-xs-12" for="empresa">Empresa *:
+                    <label for="Empresa : " class="control-label col-md-3 col-sm-3 col-xs-12" for="empresa">Empresa :
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                      <input id="empresa" class="form-control col-md-7 col-xs-12" placeholder="Empresa"
-                        name="empresa" type="text">
+                      <input id="empresa" class="form-control col-md-7 col-xs-12" placeholder="Ingrese la empresa"
+                        name="empresa" type="text" required>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label for="Area de visita *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Area De Visita *: </label>
+                    <label for="Area de visita : " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Area De Visita : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select id="area_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="area_id">
-                            <option selected="selected" value="">Seleccione una opción</option>
+                        <select id="area_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="area_id" required>
+                            <option selected="selected" value="">Seleccione El area</option>
                             {% for area in form.area_id.field.queryset %}
                                 <option value="{{ area.id }}" data-area-id="{{ area.id }}">{{ area.nombre }}</option>
                             {% endfor %}
@@ -104,20 +109,19 @@
                 </div>
                                 
                 <div class="form-group">
-                  <label for="Empleado *: " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado *: </label>
+                  <label for="Empleado : " class="control-label col-md-3 col-sm-12 col-xs-12" for="role_id">Empleado : </label>
                   <div class="col-md-6 col-sm-6 col-xs-12">
-                      <select id="id_empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="empleado_id">
-                          <option selected="selected" value="">Seleccione una opción</option>
+                      <select id="id_empleado_id" class="form-control col-md-7 col-xs-12 btn btn-default" name="empleado_id" required>
+                          <option selected="selected" value="">Seleccione el empleado</option>
                           {% for empleado in form.empleado_id.field.queryset %}
                               <option value="{{ empleado.id }}" data-area-id="{{ empleado.area_id }}">{{ empleado.nombre }}</option>
                           {% endfor %}
                       </select>
                   </div>
-              </div>
-                                
+              </div>                    
                   <div class="form-group">
-                    <label for="Ingresar equipo *: " class="control-label col-md-3 col-sm-12 col-xs-12"
-                      for="role_id">Ingresar Equipo *: </label>
+                    <label for="Ingresar equipo : " class="control-label col-md-3 col-sm-12 col-xs-12"
+                      for="role_id">Ingresar Equipo : </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <button type="button" class="btn btn-primary" id="equipo" data-toggle="modal" data-target="#myModal">Ingresar</button>
                         <button type="reset" class="btn btn-primary" id="btnBorrar">Borrar</button>
@@ -137,71 +141,60 @@
                   <div class="row">
                   </div>
                 </div>
-                <!-- Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title" id="myModalLabel">Equipo</h4>
                       </div>
                       <div class="modal-body">
-                        <div class="form-group">
-                          <label for="tipo de equipo *: " class="control-label col-md-4 col-sm-12 col-xs-12"
-                            for="equipo">Tipo De Equipo *: </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select id="articulo_id" class="form-control col-md-7 col-xs-12 btn btn-default"
-                              name="articulo_id">
-                              <option selected="selected" value="">Seleccione una opción</option>
-                              <option value="1">Portatil</option>
-                              <option value="2">Tablet</option>
-                              <option value="3">Disco duro</option>
-                            </select>
+                          <div class="form-group">
+                            <label for="{{ form.tipo_equipo.id_for_label }}" class="control-label col-md-4 col-sm-12 col-xs-12">Tipo De Equipo :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              {{ form.tipo_equipo }}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="{{ form.marca.id_for_label }}" class="control-label col-md-4 col-sm-3 col-xs-12">Marca :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              {{ form.marca }}
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="{{ form.serial.id_for_label }}" class="control-label col-md-4 col-sm-3 col-xs-12">Serial :</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              {{ form.serial }}
+                            </div>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                           </div>
                         </div>
-                        <div class="form-group">
-                          <label for="marca *: " class="control-label col-md-4 col-sm-3 col-xs-12" for="marca">Marca *:
-                          </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="marca" class="form-control col-md-7 col-xs-12" placeholder="marca" name="marca"
-                              type="text">
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <label for="Serial *: " class="control-label col-md-4 col-sm-3 col-xs-12" for="serial">Serial
-                            *: </label>
-                          <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input id="serial" class="form-control col-md-7 col-xs-12" placeholder="Serial"
-                              name="serial" type="text">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                       </div>
                     </div>
                   </div>
+                  <div class="form-group">
+                    <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                      <input id="crear" class="btn btn-primary" type="submit" value="Crear">
+                    </div>
+                  </form>
                 </div>
-                <div class="form-group">
-                  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                    <input id="crear" class="btn btn-primary" type="submit" value="Crear">
-                  </div>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
     <div class="col-md-6" style="float: right; margin-right: 10px; margin-top: 20px;">
         <video id="camera-feed" autoplay></video>
         <button id="capture-button">Capturar Imagen</button>
         <canvas id="captured-image" style="display: none; width: 20%;"></canvas>
     </div>     
-  <script src="{% static 'js/login.js' %}"></script>
+  <script src="{% static 'js/index.js' %}"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  
   </center>
 </body>
 </html>
+
+

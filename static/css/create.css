@@ -1,5 +1,5 @@
 .col-md-12.col-sm-12.col-xs-12 {
-    margin-top: -21px;
+    margin-top: -37px;
 }
 h3 {
     margin-top: 34px;
@@ -10,7 +10,7 @@ body {
 
 #capture-button {
     position: relative;
-    top: -450px;
+    top: -350px;
     right: 371px;
     color: #fff;
     background-color:  #df1515;
@@ -28,7 +28,7 @@ body {
 
 #camera-feed {
     position: relative;
-    top: -484px;
+    top: -447px;
     width: 75%;
     left: 121px;
     border-radius: 4px;
@@ -67,3 +67,8 @@ body {
     background-color: #d73232;
     border-color: #a94442;
 }
+
+.center-content {
+    text-align: center;
+  }
+  

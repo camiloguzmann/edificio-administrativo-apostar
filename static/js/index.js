@@ -58,7 +58,7 @@ document.getElementById('capture-button').addEventListener('click', function () 
 
                     if (responseJson && responseJson.cedula) {
                         // Llena el campo "identificacion" con el número de cédula extraído
-                        var identificacionInput = document.getElementById('identificacion');
+                        var identificacionInput = document.getElementById('identificacion').value = responseJson.cedula;
                         if (identificacionInput) {
                             identificacionInput.value = responseJson.cedula;
                         }
@@ -126,3 +126,5 @@ document.addEventListener('DOMContentLoaded', function () {
         empleadoDropdown.options[i].style.display = 'none';
     }
 });
+
+
