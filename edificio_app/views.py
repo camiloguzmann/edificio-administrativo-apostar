@@ -1,25 +1,25 @@
-from django.shortcuts import render
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404
-from django.shortcuts import redirect
-from django.urls import reverse
-
-
-import cv2
-import pytesseract
-import re
-from django.http import JsonResponse
-from django.shortcuts import render
+from typing import Any
+import cv2,pytesseract , re
 import numpy as np
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from .forms import RegistroVisitanteForm
-from .models import Empleado, Area
 from django.contrib import messages
+from django.views.generic import ListView, TemplateView
+from .models import Empleado, Area , Visitantes
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
+# Create your views here.
+class loginView(ListView):
+    template_name = ('login.html')
 
-
-
-from django.contrib import messages
+@login_required
+def indexView(request):
+    data = {
+        'titulo': 'SISTEMA DE SEGURIDAD'
+    }
+    return render(request, 'index.html', data)
 
 @login_required
 def createFormView(request):
@@ -31,7 +31,7 @@ def createFormView(request):
         if visitante_form.is_valid():
             visitante_form.save()
             messages.success(request, 'El visitante se ha registrado exitosamente.')
-            return redirect('empleados')
+            return redirect('salida')
         else:
             messages.error(request, 'Hubo un error al procesar el formulario. Por favor, verifica los datos.')
 
@@ -79,31 +79,85 @@ def completarCedula(request):
         response_data = {'cedula': cedula, 'nombres': nombres, 'apellidos': apellidos}
         return JsonResponse(response_data)
 
-# Create your views here.
-def loginView(request):
-    return render(request, 'login.html')
 
-@login_required
-def indexView(request):
-    return render(request, 'index.html')
+class visitantesSalidaView(ListView):
+    model = Visitantes
+    template_name = 'visitantes.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['titulo']='VISITANTES SALIDA'
+        return context
 
 
-@login_required
-def empleadosView(request):
-    return render (request, 'empleados.html')
+# class EmpleadosView(ListView):
+#     model = Empleado
+#     template_name = 'empleados.html'  
+#     context_object_name = 'empleados'
+#     paginate_by = 15
 
-@login_required
-def reportesView(request):
-    return render (request, 'reportes.html')
+#     def get_queryset(self):
+#         return Empleado.objects.all()
+    
+    
+#     def get_context_data(self, **kwargs):
+#         context=super().get_context_data(**kwargs)
+#         context['titulo']='LISTA DE EMPLEADOS'
+#         return context
 
-@login_required
-def usersView(request):
-    return render (request, 'users.html')
+class EmpleadosView(ListView):
+    model = Empleado
+    template_name = 'empleados.html'
+    context_object_name = 'empleados'
+    paginate_by = 15
 
-@login_required
-def visitantesView(request):
-    return render (request, 'visitantes.html')
+    def get_queryset(self):
+        return Empleado.objects.all()
 
-@login_required
-def empleadosCreateView(request):
-    return render (request, 'empleados/createEmpleados.html')
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        # Crear un objeto Paginator basado en la lista completa de empleados
+        empleados_por_pagina = self.paginate_by
+        paginator = Paginator(Empleado.objects.all(), empleados_por_pagina)
+
+        # Obtener el número de página desde la solicitud
+        page = self.request.GET.get('page', 1)
+
+        try:
+            # Obtener la página actual
+            empleados = paginator.page(page)
+        except PageNotAnInteger:
+            # Si la página no es un número, mostrar la primera página
+            empleados = paginator.page(1)
+        except EmptyPage:
+            # Si la página está fuera de rango, mostrar la última página
+            empleados = paginator.page(paginator.num_pages)
+
+        # Pasa el objeto Paginator a la plantilla
+        context['paginator'] = paginator
+
+        # Pasa la lista paginada de empleados al contexto
+        context[self.context_object_name] = empleados
+
+        # Otros datos de contexto
+        context['titulo'] = 'LISTA DE EMPLEADOS'
+
+        return context
+
+
+
+class ReportesView(TemplateView):
+    template_name = 'reportes.html'
+
+class UsersView(TemplateView):
+    #cuando edite eso cambiar el parametro de TemplateView a ListView
+    template_name = 'users.html'
+
+class EmpleadosCreateView(TemplateView):
+    template_name = 'empleados/createEmpleados.html'
+
+class EmpleadosEditView(TemplateView):
+    template_name = 'empleados/editarEmpleados.html'
+
+class UsersCreateView(TemplateView):
+    template_name = 'users/createUsers.html'

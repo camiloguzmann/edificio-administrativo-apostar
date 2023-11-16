@@ -25,8 +25,9 @@ class Area(models.Model):
 
 class Empleado(models.Model):
     nombre = models.CharField(max_length=255)
+    apellido = models.CharField(max_length=255, default='')
     area = models.ForeignKey(Area, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.nombre} {self.apellido}"
    

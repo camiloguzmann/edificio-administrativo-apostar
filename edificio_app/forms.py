@@ -12,12 +12,7 @@ class RegistroVisitanteForm(forms.ModelForm):
     widget=forms.Select(attrs={'class': 'form-control'}))
     empleado_id = forms.ModelChoiceField(queryset=Empleado.objects.all(),label='Empleado',required=True,empty_label="Seleccione un Empleado",
     widget=forms.Select(attrs={'class': 'form-control'}))
-    tipo_equipo = forms.ChoiceField(
-        label='Equipo',
-        choices=options_Equipos,
-        required=False,
-        widget=forms.Select(attrs={'class': 'form-control'})
-    )
+    tipo_equipo = forms.ChoiceField(label='Equipo',choices=options_Equipos,required=False,widget=forms.Select(attrs={'class': 'form-control'}))
     marca = forms.CharField(label='Marca',required=False,max_length=10,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Introduzca la marca'}))
     serial = forms.IntegerField(label='serial',required=False,min_value=10,widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Introduzca el serial'}))
 

@@ -3,14 +3,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>APOSTAR</title>
-  <title>SISTEMA DE SEGURIDAD</title>
+  <title> {{ titulo }} </title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/empleados.css' %}">
 </head>
-
 <body>
   <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
   <nav class="navbar navbar-default">
@@ -50,30 +47,52 @@
               <th>Operación</th>
             </thead>
             <tbody>
+              {% for e in object_list %}
               <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{e.nombre}}</td>
+                <td>{{e.apellido}}</td>
+                <td>{{e.area}}</td>
                 <td>
-                  <a href="#" class="btn btn-primary">Editar</a>
+                  
+                  <a href="{% url 'editarEmpleados' %}" class="btn btn-primary">Editar</a>
                 </td>
               </tr>
-            </tbody>
+              {% endfor %}
+            </tbody>           
             <ul class="pagination">
-              <li class="disabled"><span>&laquo;</span></li>
-              <li class="active"><span>1</span></li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#" rel="next">&raquo;</a></li>
-            </ul>
+              {% if paginator.num_pages > 1 %}
+                  {% if object_list.has_previous %}
+                      <li id="previousPage" onclick="previousPage()"><a href="?page=1">&laquo;&laquo;</a></li>
+                      <li id="previousPage" onclick="previousPage()"><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
+                  {% else %}
+                      <!-- <li class=""><span>&laquo;</span></li> -->
+                      <li class="disabled" id="previousPage" onclick="previousPage()"><span>&laquo;</span></li>
+
+                  {% endif %}
+              
+                  {% for num in paginator.page_range %}
+                      {% if num == object_list.number %}
+                          <li class="active"><span>{{ num }} <span class="sr-only">(current)</span></span></li>
+                      {% else %}
+                          <li><a href="?page={{ num }}">{{ num }}</a></li>
+                      {% endif %}
+                  {% endfor %}
+              
+                  {% if object_list.has_next %}
+                      <li id="nextPage" onclick="nextPage()"><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
+                      <li id="nextPage" onclick="nextPage()"><a href="?page={{ paginator.num_pages }}">&raquo;&raquo;</a></li>
+                  {% else %}
+                      <!-- <li class="disabled"><span>&raquo;</span></li> -->
+                      <li id="nextPage"><a href="#" class="page-link" onclick="nextPage()">»</a></li>
+                  {% endif %}
+              {% endif %}
+          </ul>
           </table>
         </div>
       </div>
     </div>
   </div>
-
+<script src="{% static 'js/empleados.js' %}"></script>
 </body>
 
 </html>

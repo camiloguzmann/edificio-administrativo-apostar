@@ -3,8 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>APOSTAR</title>
-    <title>SISTEMA DE SEGURIDAD</title>
+    <title>  {{ titulo }} </title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -40,7 +39,7 @@
             <center id="menu">
                 <tr>
                     <td>
-                        <a href="{% url 'create' %}"><img id="img" src="{% static 'img/persona.jpg' %}"
+                        <a href="{% url 'visitantes' %}"><img id="img" src="{% static 'img/persona.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
@@ -50,7 +49,7 @@
                     </td>
                     <td>
                         <br>
-                        <a href="{% url 'visitantes' %}"><img id="img" src="{% static 'img/relog.jpg' %}"
+                        <a href="{% url 'salida' %}"><img id="img" src="{% static 'img/relog.jpg' %}"
                                 style="width: 200px; height: 200px; margin-right: 10px;"></a>
                         </br>
                         <center>
