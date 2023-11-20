@@ -14,9 +14,18 @@ class RegistroVisitanteForm(forms.ModelForm):
     widget=forms.Select(attrs={'class': 'form-control'}))
     tipo_equipo = forms.ChoiceField(label='Equipo',choices=options_Equipos,required=False,widget=forms.Select(attrs={'class': 'form-control'}))
     marca = forms.CharField(label='Marca',required=False,max_length=10,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Introduzca la marca'}))
-    serial = forms.IntegerField(label='serial',required=False,min_value=10,widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Introduzca el serial'}))
+    serial = forms.CharField(label='serial',required=False,max_length=20,widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Introduzca el serial'}))
 
     class Meta:
         model = Visitantes
         fields = ['identificacion', 'nombres', 'apellidos', 'celular', 'empresa', 'area_id', 'empleado_id', 'tipo_equipo', 'marca', 'serial']
 
+class EmpleadoForm(forms.ModelForm):
+    nombre = forms.CharField(label='Nombre', required=True,max_length=25,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Introduzca el nombre'}))
+    apellido = forms.CharField(label='Apellido', required=True,max_length=25,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Introduzca el apellido'}))
+    area = forms.ModelChoiceField(queryset=Area.objects.all(),label='Área de Visita',required=True,empty_label="Seleccione un área",
+    widget=forms.Select(attrs={'class': 'form-control'}))
+    
+    class Meta:
+        model = Empleado
+        fields = [ 'nombre', 'apellido', 'area']

@@ -11,7 +11,7 @@ class Visitantes(models.Model):
     empleado_id = models.ForeignKey('Empleado', on_delete=models.CASCADE)
     tipo_equipo = models.CharField(max_length=25, choices=options_Equipos, blank=True, null=True)
     marca = models.CharField(max_length=255, blank=True, null=True)
-    serial = models.IntegerField(blank=True, null=True)
+    serial = models.CharField(max_length=255,blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha Ingreso')
 
     def __str__(self):
@@ -31,3 +31,6 @@ class Empleado(models.Model):
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
    
+class Salida(models.Model):
+    visitante = models.OneToOneField('Visitantes', on_delete=models.CASCADE)
+    fecha_salida = models.DateTimeField(auto_now_add=True, verbose_name='Fecha Salida')

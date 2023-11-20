@@ -1,82 +1,57 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Document</title>
-	<title>SISTEMA DE SEGURIDAD</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title> {{ titulo }} </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
 </head>
-
 <body>
-    <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
-	<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
-      </a>
+<img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;" >
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#" style="padding: 4px;">
+                <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
+            </a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{% url 'index' %}">menú</a></li>
+                <li><a href="{% url 'login' %}">Salir</a></li>
+            </ul>
+        </div>
     </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li><a href="{% url 'index' %}">menú</a></li>
-        <li><a href="{% url 'login' %}">Salir</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
 </nav>
-	
-									<div class="">
-		  <div class="page-title">
-			<div class="title_left">
-			</div>
-		  </div>
-		  <div class="clearfix"></div>
-		  <div class="row">
-			<div class="col-md-12 col-sm-12 col-xs-12">
-			  <div class="x_panel">
-				<div class="x_title">
-				  <div class="clearfix"></div>
-				</div>
-				<div class="x_content">
-					<br />
-					<form method="POST" action="" accept-charset="UTF-8" autocomplete="off" class="form-horizontal form-label-left" id="visitante"><input name="_token" type="hidden" value="9yVMDsjJ5p5Wt5AcccNpUriExVA2lxvyisYAJktE">
-						<div class="col-md-6">
-  <div class="form-group">
-    <label for="Nombres: " class="control-label col-md-3 col-sm-3 col-xs-12" for="nombres">Nombres : </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <input id="nombres" class="form-control col-md-7 col-xs-12" placeholder="Nombres" name="nombres" type="text">
+<div class="container">
+    <div class="page-title text-center">
     </div>
-  </div>
-  <div class="form-group">
-    <label for="Apellidos: " class="control-label col-md-3 col-sm-3 col-xs-12" for="apellidos">Apellidos : </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <input id="apellidos" class="form-control col-md-7 col-xs-12" placeholder="Usuario" name="apellidos" type="text">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-12">
+            <div class="x_panel">
+                <div class="x_title text-center">
+                    <h2>Crear empleado</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form method="POST" action="" accept-charset="UTF-8"
+                          autocomplete="off" class="form-horizontal form-label-left" id="demo-form2">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="form-group text-center">
+                            <div>
+                                <input class="btn btn-primary" type="submit" value="Crear">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="form-group">
-    <label for="Area: " class="control-label col-md-3 col-sm-12 col-xs-12" for="dependencia_id">Dependencia : </label>
-    <div class="col-md-6 col-sm-6 col-xs-12">
-      <select id="dependencia_id" class="form-control col-md-6 col-xs-12 btn btn-default" name="dependencia_id"><option selected="selected" value="">Seleccione una opción</option><option value="1">ARCHIVO</option><option value="2">CORDINACION DE MERCADEO</option><option value="3">DIRECCION DE GESTION Y RIESGOS</option><option value="4">COOPERATIVA</option><option value="5">COORDINACION DE RECURSOS HUMANOS</option><option value="6">DIRECCION COMERCIAL </option><option value="7">DIRECCION ADMINISTRATIVA</option><option value="8">DIRECCION DE COMUNICACIONES</option><option value="9">DIRECCION DE TICS</option><option value="10">DIRECCION FINANCIERA</option><option value="11">GERENCIA GENERAL</option><option value="12">PROCESAMIENTOS DE DATOS</option><option value="13">DIRECCION DE PRODUCTOS Y SERVICIOS</option><option value="14">DIRECCION DE RECAUDO</option><option value="15">TESORERIA</option></select>      
-    </div>
-  </div>
-</div>						<div class="form-group">
-						  <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3"> 
-							<input id="crear" class="btn btn-primary" type="submit" value="Crear">
-						  </div>
-						</div>
-					</form>
-				</div>
-			  </div>
-			</div>
-		  </div>  
-		</div>
-		
+</div>
 </body>
 </html>
+

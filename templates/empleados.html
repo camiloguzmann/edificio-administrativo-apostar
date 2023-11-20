@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/empleados.css' %}">
 </head>
-<body>
+<body style="overflow-x: hidden;">
   <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
   <nav class="navbar navbar-default">
     <div class="container-fluid">
@@ -53,46 +53,57 @@
                 <td>{{e.apellido}}</td>
                 <td>{{e.area}}</td>
                 <td>
-                  
-                  <a href="{% url 'editarEmpleados' %}" class="btn btn-primary">Editar</a>
+                  <a href="{% url 'editarEmpleados' e.id %}" class="btn btn-primary">Modificar</a>
+                  <a href="{% url 'eliminar_empleado' e.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este empleado?')" data-method="delete" data-confirm="¿Estás seguro de eliminar este empleado?">Eliminar</a>
                 </td>
               </tr>
-              {% endfor %}
+            {% endfor %}
             </tbody>           
-            <ul class="pagination">
-              {% if paginator.num_pages > 1 %}
-                  {% if object_list.has_previous %}
-                      <li id="previousPage" onclick="previousPage()"><a href="?page=1">&laquo;&laquo;</a></li>
-                      <li id="previousPage" onclick="previousPage()"><a href="?page={{ object_list.previous_page_number }}">&laquo;</a></li>
-                  {% else %}
-                      <!-- <li class=""><span>&laquo;</span></li> -->
-                      <li class="disabled" id="previousPage" onclick="previousPage()"><span>&laquo;</span></li>
 
-                  {% endif %}
-              
-                  {% for num in paginator.page_range %}
-                      {% if num == object_list.number %}
-                          <li class="active"><span>{{ num }} <span class="sr-only">(current)</span></span></li>
-                      {% else %}
-                          <li><a href="?page={{ num }}">{{ num }}</a></li>
-                      {% endif %}
-                  {% endfor %}
-              
-                  {% if object_list.has_next %}
-                      <li id="nextPage" onclick="nextPage()"><a href="?page={{ object_list.next_page_number }}">&raquo;</a></li>
-                      <li id="nextPage" onclick="nextPage()"><a href="?page={{ paginator.num_pages }}">&raquo;&raquo;</a></li>
-                  {% else %}
-                      <!-- <li class="disabled"><span>&raquo;</span></li> -->
-                      <li id="nextPage"><a href="#" class="page-link" onclick="nextPage()">»</a></li>
-                  {% endif %}
-              {% endif %}
-          </ul>
-          </table>
+          {% if is_paginated %}
+
+            <div class="mt-2">
+              <ul class="pagination">
+
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a href="?page={{ page_obj.previous_page_number }}" class="page-link">Previous</a>
+                  </li>
+                {% else %}
+                  <li class="page-item disabled">
+                    <a href="#" class="page-link">Previous</a>
+                  </li>
+                {% endif %}
+                  
+                {% for i in paginator.page_range %}
+                  <li class="page-item  {% if page_obj.number == i %} active {% endif %}">
+                    <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                  </li>
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a href="?page={{ page_obj.next_page_number }}" class="page-link">Next</a>
+                  </li>
+                {% else %}
+                <li class="page-item disabled">
+                  <a href="#" class="page-link">Next</a>
+                </li>
+                {% endif %}
+
+                </ul>
+            </div>
+
+          {% endif %}
+
+        </table>
         </div>
       </div>
     </div>
   </div>
-<script src="{% static 'js/empleados.js' %}"></script>
+</body>
+</html>
+
 </body>
 
 </html>

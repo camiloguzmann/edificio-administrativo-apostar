@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title> {{ titulo }} </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
+</head>
+<body style="overflow-x: hidden;">
+	<img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
+	<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#" style="padding: 4px;">
+        <img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
+      </a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{% url 'index' %}">menú</a></li>
+        <li><a href="{% url 'login' %}">Salir</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+	
+<div class="">
+  <div class="page-title">
+  <div class="title_left">
+  </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <div class="x_panel">
+    <div class="x_title">
+      <div class="clearfix"></div>
+    </div>
+    <div class="x_content">
+      <br />
+      <div class="col-md-10 col-md-offset-1">
+        <div class="col-md-4">
+          {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+          <input type="text" id="search" class="form-control" placeholder="Escribe para buscar..." />
+        </div>
+        <table id="tablaVisitas" class="table table-hover">
+ 
+          <thead>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Identificación</th>
+            <th>Empresa</th>
+            <th>Area de visita</th>
+            <th>Empleado</th>
+            <th>Elemento</th>
+            <th>Marca</th>
+            <th>Serial</th>
+            <th>Fecha Ingreso</th>
+            <th>Salida</th>
+            </thead>
+          <tbody>
+            {% for v in object_list %}
+              {% if not v.salida_set.all %}
+                <tr>
+                  <td>{{v.nombres}}</td>
+                  <td>{{v.apellidos}}</td>
+                  <td>{{v.identificacion}}</td>
+                  <td>{{v.empresa}}</td>
+                  <td>{{v.area_id}}</td>
+                  <td><b>{{v.empleado_id}}</b></td>
+                  <td>{{v.tipo_equipo}}</td>
+                  <td><b>{{v.marca}}</b></td>
+                  <td><b>{{v.serial}}</b></td>
+                  <td>{{v.created_at}}</td>
+                  <td>
+                    <form method="POST" action="{% url 'salida_visitante' v.id %}" accept-charset="UTF-8" id="salidarecepcion">
+                        {% csrf_token %}
+                        <input class="btn btn-danger" type="submit" value="Salida">
+                    </form>
+                  </td>            
+                </tr>		
+              {% endif %}			
+            {% endfor %}
+          </tbody>			
+        </table>
+      </div>
+    </div>
+    </div>
+  </div>
+  </div>  
+</div>
+
+
+</body>
+</html>
