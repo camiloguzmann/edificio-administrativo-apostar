@@ -3,103 +3,123 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
 	<title>SISTEMA DE SEGURIDAD</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<link media="all" type="text/css" rel="stylesheet" href="http://172.20.0.216:8080/css/font-awesome-4.7.0/css/font-awesome.min.css">
-	<link media="all" type="text/css" rel="stylesheet" href="http://172.20.0.216:8080/css/bootstrap-datetimepicker.css">
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script src="/js/webcamjs/webcam.js"></script>
-	<script src="/js/sweetalert2.all.js"></script>
-	<script src="http://172.20.0.216:8080/js/moment.js"></script>
-	<script src="http://172.20.0.216:8080/js/bootstrap-datetimepicker.js"></script>
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<link media="all" type="text/css" rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
 	<img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
 	<nav class="navbar navbar-default">
 		<div class="container-fluid">
-			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
 				<a class="navbar-brand" href="#" style="padding: 4px;">
 					<img alt="Brand" src="{% static 'img/apostar.jpg' %}" style="width: 40px; height: 40px;">
 				</a>
 			</div>
 
-			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{% url 'index' %}">menú</a></li>
 					<li><a href="{% url 'login' %}">Salir</a></li>
 				</ul>
-			</div><!-- /.navbar-collapse -->
-		</div><!-- /.container-fluid -->
+			</div>
+		</div>
 	</nav>
-	
-		
-<div class="row">
-	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="x_panel">
-			<div class="x_title">
-				<h2>Reportes </h2>
-				<ul class="nav navbar-right panel_toolbox">
-					</li>
-    			</ul>
-    			<div class="clearfix"></div>
-      		</div>
-    		<div class="x_content">
-			<table id="datatable" class="table table-hover">
-				<thead>
-					<th>Reporte</th>
-					<th>Tipo</th>
-					<th>Desde</th>
-					<th>hasta</th>
-					<th>generar</th>
-				</thead>
-				<tbody>
-					<form method="POST" action="" accept-charset="UTF-8" autocomplete="off" class="form-horizontal form-label-left" id="visitante"><input name="_token" type="hidden" value="gMwjZ72GmifoNTRGig0ocvnUqlNP9kACpiW002mU">
-					<tr>
-						<td>Ingresos</td>
-						<td><select id="tipo" class="form-control col-md-7 col-xs-12 btn btn-default" required="true" name="tipo"><option selected="selected" value="">Seleccione una opción</option><option value="1">con equipo</option><option value="2">sin equipo</option><option value="3">todos</option></select> </td>
-						<td>
-							<div class='input-group date' id='equipoFI'>
-	                			<input id="EFI" class="form-control" placeholder="YYYY-MM-DD" required="true" name="EFI" type="text">
-				                <span class="input-group-addon">
-				                    <span class="glyphicon glyphicon-calendar"></span>
-				                </span>
-            				</div>
-						</td>
-						<td>
-							<div class='input-group date' id='equipoFF'>
-	                			<input id="EFF" class="form-control" placeholder="YYYY-MM-DD" required="true" name="EFF" type="text">
-				                <span class="input-group-addon">
-				                    <span class="glyphicon glyphicon-calendar"></span>
-				                </span>
-            				</div>
-						</td>
-						<td>
-							<input id="crear" class="btn btn-primary" type="submit" value="Generar">	
-						</td>
-					</tr>
-					</form>				
-				</tbody>				
-			</table>
+
+
+	<div class="row">
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="x_panel">
+				<div class="x_title">
+					<h2>Reportes </h2>
+					<ul class="nav navbar-right panel_toolbox">
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+				<div class="x_content">
+					<table id="datatable" class="table table-hover">
+						<thead>
+							<th>Reporte</th>
+							<th>Tipo</th>
+							<th>Desde</th>
+							<th>Hasta</th>
+							<th>Generar</th>
+						</thead>
+						<tbody>
+							<form method="POST" action="{% url 'generar_excel' %}" accept-charset="UTF-8" autocomplete="off" class="form-horizontal form-label-left" id="visitante"><input name="_token" type="hidden" value="dJpQMsiPtzrwdWSZUyQXCNVVxyMoTcI7ZTelpo69">
+								{% csrf_token %}
+							<tr>
+								<td>Ingresos</td>
+								<td><select id="tipo" class="form-control col-md-7 col-xs-12 btn btn-default" required="true" name="tipo"><option selected="selected" value="">Seleccione una opción</option>
+									<option value="1">Con equipo</option>
+									<option value="2">Sin equipo</option>
+									<option value="3">Todos</option></select> </td>
+								<td>
+									<div class='input-group date' id='equipoFI'>
+										<input id="EFI" class="form-control" placeholder="YYYY-MM-DD" required="true" name="EFI" type="text">
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</td>
+								<td>
+									<div class='input-group date' id='equipoFF'>
+										<input id="EFF" class="form-control" placeholder="YYYY-MM-DD" required="true" name="EFF" type="text">
+										<span class="input-group-addon">
+											<span class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</td>
+								<td>
+									<input id="crear" class="btn btn-success" type="submit" value="Descargar Excel">	
+								</td>
+							</tr>
+							</form>	
+
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<script type="text/javascript">
-    $(function () {
-        $('.date').datetimepicker({
-            viewMode: 'years',
-        	format: 'YYYY-MM-DD',
-        });
-    });
-</script>
-	
+	<script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+	<script type="text/javascript">
+
+$(function () {
+	// Selector de fechas de jQuery UI
+	$('#EFI, #EFF').datepicker({
+		changeMonth: true,
+		changeYear: true,
+		yearRange: '2000:2100',
+		dateFormat: 'yy-mm-dd'
+	});
+});
+		function mostrarDateTimePicker() {
+			$('#EFI, #EFF,').datepicker('show');
+		}
+
+		$(function () {
+			// Agregar el controlador de eventos para abrir el DatePicker al hacer clic en el ícono del calendario
+			$('.open-datepicker').on('click', function () {
+				$(this).closest('.date').find('input').datepicker('show');
+			});
+		});
+
+
+	</script>
 </body>
+
 </html>
+ 

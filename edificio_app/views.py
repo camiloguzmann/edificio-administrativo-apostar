@@ -1,9 +1,8 @@
-from typing import Any
 import cv2,pytesseract , re
 import numpy as np
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse , HttpResponseRedirect
+from django.http import JsonResponse , HttpResponseRedirect , HttpResponse
 from .forms import RegistroVisitanteForm , EmpleadoForm
 from django.contrib import messages
 from django.views.generic import ListView, TemplateView
@@ -11,6 +10,13 @@ from .models import Empleado, Salida , Visitantes
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from openpyxl import Workbook
+from openpyxl.styles import Font
+from datetime import datetime 
+from django.utils import timezone
+from openpyxl.utils import get_column_letter
+
+
 
 # Create your views here.
 
@@ -196,6 +202,78 @@ class ReportesView(TemplateView):
         context=super().get_context_data(**kwargs)
         context['titulo']='REPORTES'
         return context
+
+def generar_excel(request):
+    tipo = request.POST.get('tipo',)
+    fecha_inicio_str = request.POST.get('EFI')
+    fecha_fin_str = request.POST.get('EFF')
+
+    # Crear un libro de trabajo y obtener la hoja de cálculo activa
+    libro_trabajo = Workbook()
+    hoja = libro_trabajo.active
+
+    fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%d') if fecha_inicio_str else None
+    fecha_fin = datetime.strptime(fecha_fin_str, '%Y-%m-%d') if fecha_fin_str else None
+
+    # Obtener la fecha actual en formato UTC
+    hoy = timezone.now().date()
+
+    # Crear encabezados en la hoja de cálculo
+    encabezados = ['Cedula_visitante', 'Nombre_visitante', 'Apellido_visitante', 'Celular_visitante', 'Empresa_visitante', 'Área_visitante', 'Empleado_visitante', 'Tipo de Equipo', 'Marca', 'Serial', 'Fecha entrada', 'Fecha salida']
+    hoja.append(encabezados)
+
+    for col_num, value in enumerate(encabezados, 1):
+        col_letter = get_column_letter(col_num)
+        hoja.column_dimensions[col_letter].width = max(len(str(value)) + 2, 10)  # Puedes ajustar el valor según tus necesidades
+
+
+    # Obtener datos según el tipo seleccionado
+    if tipo == '1':
+        # Filtrar por tipo de equipo y rango de fechas
+        queryset = Visitantes.objects.filter(
+            tipo_equipo__in=['Portatil', 'Tablet', 'Disco Duro'],
+            created_at__date__range=(fecha_inicio, fecha_fin)
+        )
+    elif tipo == '2':
+        # Filtrar por empleados sin equipo y rango de fechas
+        queryset = Visitantes.objects.filter(
+            tipo_equipo='',
+            created_at__date__range=(fecha_inicio, fecha_fin)
+        )
+    else:
+        # Filtrar por rango de fechas
+        queryset = Visitantes.objects.filter(
+            created_at__date__range=(fecha_inicio, fecha_fin)
+        )
+    
+    # Filtrar empleados del día de hoy si no hay rango de fechas especificado
+    if not fecha_inicio and not fecha_fin:
+        queryset = queryset.filter(created_at__date=hoy)
+
+    # Agregar datos a la hoja de cálculo
+    for visitante in queryset:
+        created_at = visitante.created_at.replace(tzinfo=None) if visitante.created_at else None
+        fecha_salida = None
+        if hasattr(visitante, 'salida') and visitante.salida and visitante.salida.fecha_salida:
+            fecha_salida = visitante.salida.fecha_salida.replace(tzinfo=None)
+
+        fila = [
+            visitante.identificacion, visitante.nombres, visitante.apellidos, visitante.celular, visitante.empresa,
+            visitante.area_id.nombre, visitante.empleado_id.nombre, visitante.tipo_equipo, visitante.marca, visitante.serial,
+            created_at, fecha_salida
+        ]
+        hoja.append(fila)
+
+    # Establecer el estilo del encabezado en negrita
+    for celda in hoja[1]:
+        celda.font = Font(bold=True)
+
+    # Crear la respuesta HTTP con el archivo Excel adjunto
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename=Ingresos.xlsx'
+    libro_trabajo.save(response)
+
+    return response
 
 class UsersView(TemplateView):
     #cuando edite eso cambiar el parametro de TemplateView a ListView

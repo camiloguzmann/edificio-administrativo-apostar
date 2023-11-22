@@ -29,3 +29,4 @@ class EmpleadoForm(forms.ModelForm):
     class Meta:
         model = Empleado
         fields = [ 'nombre', 'apellido', 'area']
+

@@ -37,6 +37,7 @@ urlpatterns = [
     path('editar_empleado/<int:empleado_id>/', editar_empleado, name='editarEmpleados'),
     path('eliminar_empleado/<int:empleado_id>/', eliminar_empleado, name='eliminar_empleado'),
     path('edificio/reportes/', login_required(ReportesView.as_view()), name='reportes'),
+     path('generar_excel/', generar_excel, name='generar_excel'),
     path('edificio/users/', login_required(UsersView.as_view()), name='users'),
     path('edificio/crearEmpleados/', login_required(EmpleadosCreateView.as_view()), name='crearEmpleados'),
     path('edificio/editarEmpleados/', login_required(EmpleadosEditView.as_view()), name='editarEmpleados'),

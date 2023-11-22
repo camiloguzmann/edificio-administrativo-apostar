@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Area, Empleado, Visitantes , Salida
 
-
 @admin.register(Area)
 class AreaAdmin(admin.ModelAdmin):
     list_display = ('areas',)
@@ -25,5 +24,9 @@ class SalidaAdmin(admin.ModelAdmin):
     visitante_nombre.admin_order_field = 'visitante__nombres'
     visitante_identificacion.admin_order_field = 'visitante__identificacion'
 
+@admin.register(Visitantes)
+class VisitantesAdmin(admin.ModelAdmin):
+    list_display = ('nombres', 'identificacion', 'tipo_equipo','created_at')
+    list_filter = ('tipo_equipo','created_at')
+
 admin.site.register(Empleado)
-admin.site.register(Visitantes)
