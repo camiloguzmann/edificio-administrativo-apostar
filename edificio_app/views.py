@@ -1,12 +1,11 @@
 import cv2,pytesseract , re
 import numpy as np
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse , HttpResponseRedirect , HttpResponse
-from .forms import RegistroVisitanteForm , EmpleadoForm
+from .forms import RegistroVisitanteForm , EmpleadoForm , UsuarioForm
 from django.contrib import messages
-from django.views.generic import ListView, TemplateView
-from .models import Empleado, Salida , Visitantes
+from django.views.generic import ListView, TemplateView , CreateView , UpdateView
+from .models import Empleado, Salida , Visitantes , Usuario
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -15,7 +14,7 @@ from openpyxl.styles import Font
 from datetime import datetime 
 from django.utils import timezone
 from openpyxl.utils import get_column_letter
-
+from django.contrib.auth.views import PasswordResetView
 
 
 # Create your views here.
@@ -169,14 +168,10 @@ def eliminar_empleado(request, empleado_id):
     if request.method == 'GET':
         empleado.delete()
         messages.success(request, 'El empleado se eliminó correctamente.')
-
-        # Aquí determinas a dónde redirigir después de la eliminación.
-        # Por ejemplo, podrías redirigir a la página principal ('index') o donde desees.
         return HttpResponseRedirect(reverse('empleados'))
-
     return redirect('empleados')
 
-class CreateEmpleadoFormView(TemplateView):
+class CreateEmpleadoFormView(CreateView):
     template_name = 'empleados/createEmpleados.html'
     form_class = EmpleadoForm
 
@@ -275,8 +270,8 @@ def generar_excel(request):
 
     return response
 
-class UsersView(TemplateView):
-    #cuando edite eso cambiar el parametro de TemplateView a ListView
+class UsersListView(ListView):
+    model = Usuario
     template_name = 'users.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
@@ -290,16 +285,64 @@ class EmpleadosCreateView(TemplateView):
         context['titulo']='CREAR EMPLEADOS'
         return context
     
-class EmpleadosEditView(TemplateView):
+class EmpleadosEditView(UpdateView):
     template_name = 'empleados/editarEmpleados.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['titulo']='EDITAR EMPLEADOS'
         return context
     
-class UsersCreateView(TemplateView):
+class UsersCreateView(CreateView):
+    model = Usuario
     template_name = 'users/createUsers.html'
+    form_class = UsuarioForm
+
     def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context['titulo']='CREAR USUARIOS'
+        context = super().get_context_data(**kwargs)
+        context['titulo'] = 'CREAR USUARIOS'
         return context
+
+    def form_valid(self, form):
+        # Establecer la contraseña en el usuario antes de guardarlo
+        form.instance.set_password(form.cleaned_data['password1'])
+
+        # Guardar el formulario
+        response = super().form_valid(form)
+        messages.success(self.request, 'El usuario se ha creado exitosamente.')
+        return response
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Hubo un error al procesar el formulario. Por favor, verifica los datos.')
+        return super().form_invalid(form)
+
+    def get_success_url(self):
+        return reverse('users') 
+
+def editar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST, instance=usuario)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Se ha editado el usuario correctamente.')
+            return HttpResponseRedirect(reverse('users'))
+    else:
+        form = UsuarioForm(instance=usuario)
+
+    return render(request, 'users/editarUsuarios.html', {'form': form, 'usuario': usuario})
+
+
+def eliminar_usuario(request, usuario_id):
+    usuario = get_object_or_404(Usuario, id=usuario_id)
+    if request.method == 'GET':
+        usuario.delete()
+        messages.success(request, 'El usuario se eliminó correctamente.')
+        return HttpResponseRedirect(reverse('users'))
+    return redirect('users')
+
+class CustomPasswordResetView(PasswordResetView):
+    # Especifica el campo correcto en tu modelo de usuario personalizado
+    email_field = 'email'
+    extra_context = {'email_field': email_field}
+

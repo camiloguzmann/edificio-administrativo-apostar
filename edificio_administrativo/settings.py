@@ -141,3 +141,8 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True  
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+# settings.py
+
+AUTH_USER_MODEL = 'edificio_app.Usuario'

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Area, Empleado, Visitantes , options_Equipos
+from .models import Area, Empleado, Visitantes , Usuario , options_Equipos
 
 class RegistroVisitanteForm(forms.ModelForm):
     
@@ -30,3 +30,16 @@ class EmpleadoForm(forms.ModelForm):
         model = Empleado
         fields = [ 'nombre', 'apellido', 'area']
 
+class UsuarioForm(forms.ModelForm): 
+    password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingrese su contraseña...','required':'required'}))
+    password2 = forms.CharField(label='Contraseña De Confirmación', widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingrese nuevamente su contraseña...','required':'required'}))
+
+    class Meta:
+        model = Usuario  
+        fields = ['email', 'username', 'nombres', 'apellidos']  
+        widgets = {
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo electrónico'}),
+            'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su Nombre'}),
+            'apellidos': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su Apellido'}),
+            'username': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su usuario'}),
+        }

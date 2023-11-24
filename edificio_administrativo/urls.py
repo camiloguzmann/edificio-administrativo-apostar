@@ -24,9 +24,7 @@ from edificio_app.views import *
 
 
 urlpatterns = [
-    # path('', RedirectView.as_view(url='login/', permanent=False), name='login'),
     path('admin/', admin.site.urls),
-    # path('login/', LoginView.as_view(template_name='login.html'), name='login'),
     path('', login_required(indexView.as_view()), name='index'),
     path('edificio/visitantes/', login_required(CreateVisitanteFormView.as_view()), name='visitantes'),
     path('edificio/salida/', login_required(VisitantesSalidaView.as_view()), name='salida'),
@@ -38,10 +36,13 @@ urlpatterns = [
     path('eliminar_empleado/<int:empleado_id>/', eliminar_empleado, name='eliminar_empleado'),
     path('edificio/reportes/', login_required(ReportesView.as_view()), name='reportes'),
      path('generar_excel/', generar_excel, name='generar_excel'),
-    path('edificio/users/', login_required(UsersView.as_view()), name='users'),
+    path('edificio/users/', login_required(UsersListView.as_view()), name='users'),
     path('edificio/crearEmpleados/', login_required(EmpleadosCreateView.as_view()), name='crearEmpleados'),
     path('edificio/editarEmpleados/', login_required(EmpleadosEditView.as_view()), name='editarEmpleados'),
     path('edificio/createUsers/', login_required(UsersCreateView.as_view()), name='crearUsers'),
+    path('editar_usuario/<int:usuario_id>/', editar_usuario, name='editarUsuarios'),
+    path('eliminar_usuario/<int:usuario_id>/', eliminar_usuario, name='eliminar_usuario'),
+    path('accounts/password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('cedula/',views.completarCedula)
 
