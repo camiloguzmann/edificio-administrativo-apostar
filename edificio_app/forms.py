@@ -1,5 +1,7 @@
 from django import forms
 from .models import Area, Empleado, Visitantes , Usuario , options_Equipos
+# from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group
 
 class RegistroVisitanteForm(forms.ModelForm):
     
@@ -34,9 +36,16 @@ class UsuarioForm(forms.ModelForm):
     password1 = forms.CharField(label='Contraseña', widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingrese su contraseña...','required':'required'}))
     password2 = forms.CharField(label='Contraseña De Confirmación', widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'Ingrese nuevamente su contraseña...','required':'required'}))
 
+    # Campo adicional para elegir el tipo de usuario
+    tipo_usuario = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label='Tipo de Usuario'
+    )
+
     class Meta:
         model = Usuario  
-        fields = ['email', 'username', 'nombres', 'apellidos']  
+        fields = ['email', 'username', 'nombres', 'apellidos','tipo_usuario']  
         widgets = {
             'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo electrónico'}),
             'nombres': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ingrese su Nombre'}),

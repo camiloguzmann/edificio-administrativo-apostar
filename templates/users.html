@@ -47,6 +47,7 @@
           <thead>
             <th>Nombres</th>
             <th>Usuario</th>
+            <th>Grupos</th>
             <th>Operación</th>
           </thead>
           <tbody>
@@ -54,6 +55,12 @@
             <tr>
               <td>{{u.nombres}}</td>
               <td>{{u.username}}</td>
+              <td>
+                {% for group in u.groups.all %}
+                  {{ group.name }}
+                  {% if not forloop.last %}, {% endif %}
+                {% endfor %}
+              </td>
               <td>
                 <a href="{% url 'editarUsuarios' u.id %}" class="btn btn-primary">Modificar</a>
                 <a href="{% url 'eliminar_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')" data-method="delete" data-confirm="¿Estás seguro de eliminar este Usuario?">Eliminar</a>

@@ -31,3 +31,6 @@ class VisitantesAdmin(admin.ModelAdmin):
 
 admin.site.register(Empleado)
 admin.site.register(Usuario)
+
+
+
