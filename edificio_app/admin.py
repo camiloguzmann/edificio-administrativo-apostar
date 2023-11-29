@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Area, Empleado, Visitantes , Salida , Usuario
+from django.contrib.auth.models import Permission
+
 
 @admin.register(Area)
 class AreaAdmin(admin.ModelAdmin):
@@ -31,6 +33,10 @@ class VisitantesAdmin(admin.ModelAdmin):
 
 admin.site.register(Empleado)
 admin.site.register(Usuario)
+
+
+admin.site.register(Permission)
+
 
 
 

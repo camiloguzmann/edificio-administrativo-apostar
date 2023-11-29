@@ -1,3 +1,5 @@
+// Función para mostrar una alerta básica
+
 navigator.mediaDevices.getUserMedia({ video: { width: 900, height: 500 } })
 
     .then(function (stream) {
@@ -182,3 +184,4 @@ function capturarYObtenerDatosVisitante() {
 document.getElementById('capture-button').addEventListener('click', function () {
     capturarYObtenerDatosVisitante();
 });
+

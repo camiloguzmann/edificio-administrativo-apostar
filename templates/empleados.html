@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" href="{% static 'css/empleados.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body style="overflow-x: hidden;">
   <img id="apostar" src="{% static 'img/apostar1.jpg' %}" style="width: 100%;">
@@ -54,7 +55,9 @@
                 <td>{{e.area}}</td>
                 <td>
                   <a href="{% url 'editarEmpleados' e.id %}" class="btn btn-primary">Modificar</a>
-                  <a href="{% url 'eliminar_empleado' e.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este empleado?')" data-method="delete" data-confirm="¿Estás seguro de eliminar este empleado?">Eliminar</a>
+                  <a href="{% url 'editarEmpleados' e.id %}" class="btn btn-danger eliminar-empleado" data-empleado-id="{{ e.id }}">Eliminar</a>
+
+                  <!-- <a href="{% url 'editarEmpleados' e.id %}" class="btn btn-danger" onclick="DeleteSweet('{{ empleado.id }}')" data-method="delete" data-confirm="¿Estás seguro de eliminar este empleado?">Eliminar</a> -->
                 </td>
               </tr>
             {% endfor %}
@@ -103,7 +106,8 @@
   </div>
 </body>
 </html>
-
 </body>
-
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'js/sweetAlert/EliminarEmpleadoSweetAlert.js' %}"></script>
 </html>

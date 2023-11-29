@@ -1,4 +1,6 @@
+from typing import Any
 import cv2,pytesseract , re
+from django.db.models.query import QuerySet
 import numpy as np
 from django.shortcuts import render, redirect
 from django.http import JsonResponse , HttpResponseRedirect , HttpResponse
@@ -8,15 +10,18 @@ from django.views.generic import ListView, TemplateView , CreateView , UpdateVie
 from .models import Empleado, Salida , Visitantes , Usuario
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from openpyxl import Workbook
 from openpyxl.styles import Font
 from datetime import datetime 
 from django.utils import timezone
 from openpyxl.utils import get_column_letter
 from django.contrib.auth.views import PasswordResetView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin , PermissionRequiredMixin
 from django.views import View
+from edificio_app.mixins import LoginYSuperStaffMixin
+from django.contrib.auth.models import Permission
+
 
 
 # Create your views here.
@@ -41,10 +46,14 @@ class CreateVisitanteFormView(LoginRequiredMixin,TemplateView):
 
         if visitante_form.is_valid():
             visitante_form.save()
-            messages.success(request, 'El visitante se ha registrado exitosamente.')
-            # return redirect('salida')
-        else:
-            messages.error(request, 'Hubo un error al procesar el formulario. Por favor, verifica los datos.')
+            response_data = {
+                'success': True,
+                'redirect_url': reverse('salida'),  # O la URL a la que deseas redirigir
+                'title': 'Éxito',
+                'message': 'El Visitante se ha registrado exitosamente.',
+                'icon': 'success',
+            }
+            return JsonResponse(response_data)
 
         return render(request, self.template_name, {'form': visitante_form})
 
@@ -78,27 +87,6 @@ def completarCedula(request):
         response_data = {'cedula': cedula}
         
         return JsonResponse(response_data)
-
-# def obtener_datos_visitante(request, cedula):
-#     # Filtrar visitantes por la identificación proporcionada
-#     visitantes = Visitantes.objects.filter(identificacion=cedula)
-
-#     if visitantes.exists():
-#         # Tomar el primer visitante del conjunto de resultados
-#         primer_visitante = visitantes.first()
-
-#         # Devolver los datos del primer visitante en formato JSON
-#         data = {
-#             'existe': True,
-#             'nombres': primer_visitante.nombres,
-#             'apellidos': primer_visitante.apellidos,
-#             'celular': primer_visitante.celular,
-#         }
-#     else:
-#         # No hay visitantes con la identificación proporcionada
-#         data = {'existe': False}
-
-#     return JsonResponse(data)
 
 class ObtenerDatosVisitanteView(LoginRequiredMixin, View):
     def get(self, request, cedula, *args, **kwargs):
@@ -148,12 +136,31 @@ class SalidaView(LoginRequiredMixin,ListView):
             salida.save()
 
             # Añadir un mensaje de éxito
-            messages.success(request, 'Se ha registrado la salida del visitante correctamente.')
+            response_data = {
+                'success': True,
+                'title': '¿Estás seguro?',
+                'text': 'Una vez que confirme, no podrá deshacer esta acción.',
+                'icon': 'warning',
+                'showCancelButton': True,
+                'confirmButtonColor': '#d33',
+                'cancelButtonColor': '#3085d6',
+                'confirmButtonText': 'Dar salida',
+                'cancelButtonText': 'Cancelar',
+            }
         else:
             # Añadir un mensaje de advertencia si ya existe una salida
-            messages.warning(request, 'El visitante ya ha registrado su salida previamente.')
+            response_data = {
+                'success': False,
+                'title': 'Advertencia',
+                'text': 'El visitante ya ha registrado su salida previamente.',
+                'icon': 'warning',
+                'showCancelButton': False,
+                'confirmButtonColor': '#3085d6',
+                'confirmButtonText': 'OK',
+            }
 
-        return render(request, self.template_name, {'object_list': self.get_queryset(), 'titulo': 'VISITANTES SALIDA'})
+        # Devolver la respuesta como JSON
+        return JsonResponse(response_data)
 
     def get_queryset(self):
         return Visitantes.objects.exclude(salida__isnull=False)
@@ -172,50 +179,6 @@ class EmpleadoslistView(LoginRequiredMixin,ListView):
         context['titulo']='EMPLEADOS'
         return context
 
-# def editar_empleado(request, empleado_id):
-#     empleado = get_object_or_404(Empleado, id=empleado_id)
-
-#     if request.method == 'POST':
-#         form = EmpleadoForm(request.POST, instance=empleado)
-#         if form.is_valid():
-#             form.save()
-#             messages.success(request, 'Se ha editado el empleado correctamente.')
-#             return HttpResponseRedirect(reverse('empleados'))
-#     else:
-#         form = EmpleadoForm(instance=empleado)
-
-#     return render(request, 'empleados/editarEmpleados.html', {'form': form, 'empleado': empleado})
-
-class EditarEmpleadoView(LoginRequiredMixin,View):
-    template_name = 'empleados/editarEmpleados.html'
-
-    def get(self, request, empleado_id, *args, **kwargs):
-        empleado = get_object_or_404(Empleado, id=empleado_id)
-        form = EmpleadoForm(instance=empleado)
-        return render(request, self.template_name, {'form': form, 'empleado': empleado})
-
-    def post(self, request, empleado_id, *args, **kwargs):
-        empleado = get_object_or_404(Empleado, id=empleado_id)
-        form = EmpleadoForm(request.POST, instance=empleado)
-
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Se ha editado el empleado correctamente.')
-            return HttpResponseRedirect(reverse('empleados'))
-
-        return render(request, self.template_name, {'form': form, 'empleado': empleado})
-
-class EliminarEmpleadoView(LoginRequiredMixin,View):
-    def get(self, request, empleado_id, *args, **kwargs):
-        empleado = get_object_or_404(Empleado, id=empleado_id)
-        empleado.delete()
-        messages.success(request, 'El empleado se eliminó correctamente.')
-        return HttpResponseRedirect(reverse('empleados'))
-
-    def post(self, request, empleado_id, *args, **kwargs):
-        # Manejar cualquier lógica adicional para el método POST si es necesario
-        return redirect('empleados')
-
 class CreateEmpleadoFormView(LoginRequiredMixin,CreateView):
     template_name = 'empleados/createEmpleados.html'
     form_class = EmpleadoForm
@@ -229,20 +192,68 @@ class CreateEmpleadoFormView(LoginRequiredMixin,CreateView):
 
         if empleado_form.is_valid():
             empleado_form.save()
-            messages.success(request, 'El empleado se ha creado exitosamente.')
-            return redirect('index')  # Redirige a la página principal o donde desees después de crear un empleado
-        else:
-            messages.error(request, 'Hubo un error al procesar el formulario. Por favor, verifica los datos.')
+            response_data = {
+                'success': True,
+                'redirect_url': reverse('empleados'),  # O la URL a la que deseas redirigir
+                'title': 'Éxito',
+                'message': 'El empleado se ha creado exitosamente.',
+                'icon': 'success',
+            }
+            return JsonResponse(response_data)
 
         return render(request, self.template_name, {'form': empleado_form})
 
-class ReportesView(LoginRequiredMixin,TemplateView):
-    template_name = 'reportes.html'
+class EmpleadosEditView(LoginRequiredMixin,UpdateView):
+    template_name = 'empleados/editarEmpleados.html'
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
-        context['titulo']='REPORTES'
+        context['titulo']='EDITAR EMPLEADOS'
         return context
+   
+class EditarEmpleadoView(LoginRequiredMixin, View):
+    template_name = 'empleados/editarEmpleados.html'
 
+    def get(self, request, empleado_id, *args, **kwargs):
+        empleado = get_object_or_404(Empleado, id=empleado_id)
+        form = EmpleadoForm(instance=empleado)
+        return render(request, self.template_name, {'form': form, 'empleado': empleado})
+
+    def post(self, request, empleado_id, *args, **kwargs):
+        empleado = get_object_or_404(Empleado, id=empleado_id)
+        form = EmpleadoForm(request.POST, instance=empleado)
+
+        if form.is_valid():
+            form.save()
+
+            # Agregar un mensaje de éxito
+            messages.success(request, 'Se ha editado el empleado correctamente.')
+
+            # Configurar el response_data
+            response_data = {
+                'success': True,
+                'message': 'Se ha editado el empleado correctamente.',
+                'redirect_url': reverse('empleados'),  # O la URL a la que deseas redirigir
+            }
+
+            # Devolver la respuesta como JSON
+            return JsonResponse(response_data)
+
+        # Si el formulario no es válido, renderizar la página con errores
+        return render(request, self.template_name, {'form': form, 'empleado': empleado})
+
+class EliminarEmpleadoView(LoginRequiredMixin, View):
+    def get(self, request, empleado_id, *args, **kwargs):
+        empleado = get_object_or_404(Empleado, id=empleado_id)
+        empleado.delete()
+        messages.success(request, 'El empleado se eliminó correctamente.')
+
+        # Devolver una respuesta JSON indicando el éxito de la eliminación
+        return JsonResponse({'status': 'success'})
+
+    def post(self, request, empleado_id, *args, **kwargs):
+        # Manejar cualquier lógica adicional para el método POST si es necesario
+        return redirect('empleados')
+    
 # def generar_excel(request):
 #     tipo = request.POST.get('tipo',)
 #     fecha_inicio_str = request.POST.get('EFI')
@@ -315,7 +326,14 @@ class ReportesView(LoginRequiredMixin,TemplateView):
 
 #     return response
 
-class GenerarExcelView(LoginRequiredMixin,View):
+class ReportesView(LoginRequiredMixin,LoginYSuperStaffMixin,TemplateView):
+    template_name = 'reportes.html'
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        context['titulo']='REPORTES'
+        return context
+
+class GenerarExcelView(LoginRequiredMixin,LoginYSuperStaffMixin,View):
     def post(self, request, *args, **kwargs):
         tipo = request.POST.get('tipo', '')
         fecha_inicio_str = request.POST.get('EFI', '')
@@ -386,33 +404,27 @@ class GenerarExcelView(LoginRequiredMixin,View):
         libro_trabajo.save(response)
 
         return response
-
-class UsersListView(LoginRequiredMixin,ListView):
+ 
+class UsersListView(LoginRequiredMixin,LoginYSuperStaffMixin,PermissionRequiredMixin,ListView):
+    permission_required = ('edificio_app.view_usuario','edificio_app.add_usuario','edificio_app.change_usuario','edificio_app.delete_usuario')
     model = Usuario
     template_name = 'users.html'
+
+
+    def get_queryset(self):
+        # Filtra los usuarios que son staff
+        return self.model.objects.filter(is_active=True)
+
     def get_context_data(self, **kwargs):
         context=super().get_context_data(**kwargs)
         context['titulo']='LISTA DE USUARIOS'
         return context
 
-class EmpleadosCreateView(LoginRequiredMixin,TemplateView):
-    template_name = 'empleados/createEmpleados.html'
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context['titulo']='CREAR EMPLEADOS'
-        return context
-    
-class EmpleadosEditView(LoginRequiredMixin,UpdateView):
-    template_name = 'empleados/editarEmpleados.html'
-    def get_context_data(self, **kwargs):
-        context=super().get_context_data(**kwargs)
-        context['titulo']='EDITAR EMPLEADOS'
-        return context
-
-class UsersCreateView(LoginRequiredMixin,CreateView):
+class UsersCreateView(LoginRequiredMixin, LoginYSuperStaffMixin, CreateView):
     model = Usuario
     template_name = 'users/createUsers.html'
     form_class = UsuarioForm
+    success_url = reverse_lazy('users')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -420,29 +432,40 @@ class UsersCreateView(LoginRequiredMixin,CreateView):
         return context
 
     def form_valid(self, form):
-        # Establecer la contraseña en el usuario antes de guardarlo
         form.instance.set_password(form.cleaned_data['password1'])
 
-        # Guardar el formulario
         response = super().form_valid(form)
+        usuario_creado = form.save()
 
-        # Obtener el grupo seleccionado del formulario
         grupo_seleccionado = form.cleaned_data['tipo_usuario']
+        usuario_creado.groups.add(grupo_seleccionado)
 
-        # Asignar el grupo al usuario recién creado
-        self.object.groups.add(grupo_seleccionado)
+        if grupo_seleccionado.name == 'Administrador':
+            usuario_creado.is_superuser = True
+            usuario_creado.user_permissions.set(grupo_seleccionado.permissions.all())
+            usuario_creado.save()
 
         messages.success(self.request, 'El usuario se ha creado exitosamente.')
-        return response
+
+        return JsonResponse({
+            'title': 'Éxito',
+            'message': 'El usuario se ha creado exitosamente.',
+            'icon': 'success',
+            'success': True,
+            'redirect_url': self.success_url,
+        })
 
     def form_invalid(self, form):
         messages.error(self.request, 'Hubo un error al procesar el formulario. Por favor, verifica los datos.')
-        return super().form_invalid(form)
 
-    def get_success_url(self):
-        return reverse('users')
+        return JsonResponse({
+            'title': 'Error',
+            'message': 'Hubo un error al procesar el formulario. Por favor, verifica los datos.',
+            'icon': 'error',
+            'success': False,
+        })
 
-class EditarUsuarioView(LoginRequiredMixin,View):
+class EditarUsuarioView(LoginRequiredMixin, LoginYSuperStaffMixin,View):
     template_name = 'users/editarUsuarios.html'
 
     def get(self, request, usuario_id, *args, **kwargs):
@@ -455,13 +478,39 @@ class EditarUsuarioView(LoginRequiredMixin,View):
         form = UsuarioForm(request.POST, instance=usuario)
 
         if form.is_valid():
+            form.save(commit=False)
+            grupo_seleccionado = form.cleaned_data['tipo_usuario']
+            usuario.groups.set([grupo_seleccionado])
+
+            if grupo_seleccionado.name == 'Administrador':
+                usuario.is_staff = True
+                admin_permissions = Permission.objects.filter(codename__startswith='admin')
+                usuario.user_permissions.set(admin_permissions)
+            else:
+                usuario.is_staff = False
+                usuario.user_permissions.clear()
+
             form.save()
+
             messages.success(request, 'Se ha editado el usuario correctamente.')
-            return HttpResponseRedirect(reverse('users'))
+            response_data = {
+                'success': True,
+                'title': 'Éxito',
+                'message': 'Se ha editado el usuario correctamente.',
+                'icon': 'success',
+                'redirect_url': reverse('users'),
+            }
+            return JsonResponse(response_data)
 
-        return render(request, self.template_name, {'form': form, 'usuario': usuario})
+        response_data = {
+            'success': False,
+            'title': 'Error',
+            'message': 'Ha ocurrido un error al editar el usuario.',
+            'icon': 'error',
+        }
+        return JsonResponse(response_data)
 
-class EliminarUsuarioView(LoginRequiredMixin,View):
+class EliminarUsuarioView(LoginRequiredMixin,LoginYSuperStaffMixin,View):
 
     def get(self, request, usuario_id, *args, **kwargs):
         usuario = get_object_or_404(Usuario, id=usuario_id)

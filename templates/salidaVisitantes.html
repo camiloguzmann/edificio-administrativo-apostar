@@ -45,17 +45,8 @@
       <br />
       <div class="col-md-10 col-md-offset-1">
         <div class="col-md-4">
-          {% if messages %}
-          <ul class="messages">
-              {% for message in messages %}
-                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-              {% endfor %}
-          </ul>
-        {% endif %}
-          <input type="text" id="search" class="form-control" placeholder="Escribe para buscar..." />
         </div>
         <table id="tablaVisitas" class="table table-hover">
- 
           <thead>
             <th>Nombres</th>
             <th>Apellidos</th>
@@ -73,6 +64,7 @@
             {% for v in object_list %}
               {% if not v.salida_set.all %}
                 <tr>
+                  <!-- Otros campos de la tabla -->
                   <td>{{v.nombres}}</td>
                   <td>{{v.apellidos}}</td>
                   <td>{{v.identificacion}}</td>
@@ -84,9 +76,9 @@
                   <td><b>{{v.serial}}</b></td>
                   <td>{{v.created_at}}</td>
                   <td>
-                    <form method="POST" action="{% url 'salida_visitante' v.id %}" accept-charset="UTF-8" id="salidarecepcion">
-                        {% csrf_token %}
-                        <input class="btn btn-danger" type="submit" value="Salida">
+                    <form method="POST" action="{% url 'salida_visitante' v.id %}" accept-charset="UTF-8" class="salida-form" id="salidarecepcion-{{ v.id }}">
+                      {% csrf_token %}
+                      <input class="btn btn-danger" type="submit" value="Salida">
                     </form>
                   </td>            
                 </tr>		
@@ -100,7 +92,8 @@
   </div>
   </div>  
 </div>
-
-
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/sweetAlert/DarSalidaSweetAlert.js' %}"></script>
 </body>
 </html>

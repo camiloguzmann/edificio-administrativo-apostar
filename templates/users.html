@@ -52,6 +52,7 @@
           </thead>
           <tbody>
             {% for u in object_list %}
+            {% if u.is_active %}
             <tr>
               <td>{{u.nombres}}</td>
               <td>{{u.username}}</td>
@@ -66,7 +67,8 @@
                 <a href="{% url 'eliminar_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')" data-method="delete" data-confirm="¿Estás seguro de eliminar este Usuario?">Eliminar</a>
             </td>
             
-            </tr>					
+            </tr>		
+            {% endif %}
             {% endfor %}
           </tbody>	                  
         </table>

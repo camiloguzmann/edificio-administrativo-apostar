@@ -61,3 +61,23 @@
 //   //   nextPageLink.classList.remove('disabled');
 //   // }
 // });
+
+// Ejemplo de uso básico
+Swal.fire('Hello World!');
+
+// Puedes personalizar los botones y el comportamiento
+$("#crear").on("click", function() {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡No podrás revertir esto!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminarlo',
+    cancelButtonText: 'No, cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Aquí puedes hacer la acción que desees después de confirmar
+      $("#visitante").submit();
+    }
+  });
+});

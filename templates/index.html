@@ -68,6 +68,7 @@
                             <p>Empleados</p>
                         </center>
                     </td>
+                    {% if user.is_staff %}
                     <td>
                         <br>
                         <a href="{% url 'reportes' %}"><img id="img" src="{% static 'img/reporte.jpg' %}"
@@ -88,6 +89,7 @@
                             <p>Acceso Usuarios</p>
                         </center>
                     </td>
+                    {% endif %}
                 </tr>
             </center>
         </table>
