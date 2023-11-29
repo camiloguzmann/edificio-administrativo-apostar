@@ -23,7 +23,6 @@ from edificio_app.mixins import LoginYSuperStaffMixin
 from django.contrib.auth.models import Permission
 
 
-
 # Create your views here.
 
 class indexView(LoginRequiredMixin,TemplateView):
@@ -516,7 +515,8 @@ class EliminarUsuarioView(LoginRequiredMixin,LoginYSuperStaffMixin,View):
         usuario = get_object_or_404(Usuario, id=usuario_id)
         usuario.delete()
         messages.success(request, 'El usuario se eliminó correctamente.')
-        return HttpResponseRedirect(reverse('users'))
+        # Devolver una respuesta JSON indicando el éxito de la eliminación
+        return JsonResponse({'status': 'success'})
 
     def post(self, request, usuario_id, *args, **kwargs):
         # Redirigir a la lista de usuarios en caso de una solicitud POST

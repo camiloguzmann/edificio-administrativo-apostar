@@ -64,9 +64,8 @@
               </td>
               <td>
                 <a href="{% url 'editarUsuarios' u.id %}" class="btn btn-primary">Modificar</a>
-                <a href="{% url 'eliminar_usuario' u.id %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este usuario?')" data-method="delete" data-confirm="¿Estás seguro de eliminar este Usuario?">Eliminar</a>
+                <a href="{% url 'eliminar_usuario' u.id %}" class="btn btn-danger eliminar-usuario" data-usuario-id="{{ u.id }}">Eliminar</a>
             </td>
-            
             </tr>		
             {% endif %}
             {% endfor %}
@@ -76,8 +75,9 @@
       </div>
     </div>
   </div>
-    
 </body>
-
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="{% static 'js/sweetAlert/EliminarUsuarioAlertSweet.js' %}"></script>
 </html>
 
