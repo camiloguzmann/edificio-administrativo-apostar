@@ -22,8 +22,8 @@ function validarCampos() {
 function ExcelSweet() {
     if (validarCampos()) {
         Swal.fire({
-            title: "Felicitaciones",
-            text: "Generaste El reporte de salidas de excel!",
+            title: "Reporte Generado",
+            text: "El excel ya se encuentra en descargas!",
             icon: "success"
         });
     }
